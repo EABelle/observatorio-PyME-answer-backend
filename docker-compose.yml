@@ -1,0 +1,19 @@
+version: "2"
+services:
+  web:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${DOCKER_SERVER_PORTS}"
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    env_file:
+      - .env
+    ports:
+      - "${DOCKER_MONGO_PORTS}"

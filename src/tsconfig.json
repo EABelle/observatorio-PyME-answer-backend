@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "target": "es2017",
+    "outDir": "../../build",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@config": ["config/index.ts"]
+    }
+  },
+  "exclude": ["**/*.spec.ts", "**/__mocks__"]
+}

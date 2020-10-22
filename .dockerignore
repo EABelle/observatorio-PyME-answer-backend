@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.idea
+.vscode
+.dockerignore
+.gitignore
+docker-compose.yml
+Dockerfile
+README.md
+tslint.json
+.nvmrc
