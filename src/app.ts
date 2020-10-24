@@ -1,5 +1,5 @@
 import {Application} from 'express';
-import {articleRouter, userRouter} from './api/router';
+import {pollRouter, userRouter} from './api/router';
 import {apiEndpoints} from './api/config';
 import {accessControl} from './common/access-control';
 import {fourOFourMiddleware} from './common/404-middleware';
@@ -19,7 +19,7 @@ app
     .use(accessControl)
     .use(authorization)
     .use('/graphql', graphqlMiddleware)
-    .use(apiEndpoints.articles, articleRouter)
+    .use(apiEndpoints.polls, pollRouter)
     .use(apiEndpoints.users, userRouter)
     .use(fourOFourMiddleware);
 

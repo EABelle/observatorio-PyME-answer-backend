@@ -1,13 +1,13 @@
 import {Router} from 'express';
 import {UserController} from '../controller/user.controller';
-import {ArticleController} from '../controller/article.controller';
+import {PollController} from '../controller/poll.controller';
 import {param, body, query} from 'express-validator';
 
 const validations = {
     user: {
         post: [body('name').exists()]
     },
-    article: {
+    poll: {
         get: [query('tag').exists()],
         post: [body('userId').exists()],
         put: [param('id').exists(), body('userId').exists()],
@@ -18,8 +18,8 @@ const validations = {
 export const userRouter: Router = Router()
     .post('/', validations.user.post, UserController.createUser);
 
-export const articleRouter: Router = Router()
-    .get('/', validations.article.get, ArticleController.getArticles)
-    .post('/', validations.article.post, ArticleController.createArticle)
-    .put('/:id', validations.article.put, ArticleController.editArticle)
-    .delete('/:id', validations.article.delete, ArticleController.deleteArticle);
+export const pollRouter: Router = Router()
+    .get('/', validations.poll.get, PollController.getPolls)
+    .post('/', validations.poll.post, PollController.createPoll)
+    .put('/:id', validations.poll.put, PollController.editPoll)
+    .delete('/:id', validations.poll.delete, PollController.deletePoll);

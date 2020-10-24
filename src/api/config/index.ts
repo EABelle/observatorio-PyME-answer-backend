@@ -1,4 +1,4 @@
 export const apiEndpoints = {
-    articles: '/articles',
+    polls: '/polls',
     users: '/users'
 };

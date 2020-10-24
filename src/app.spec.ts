@@ -8,10 +8,10 @@ const createUserRequestFixture = (req?: any) => ({
     ...req
 });
 
-const createArticleRequestFixture = (req?: any) => ({
+const createPollRequestFixture = (req?: any) => ({
     _id: 'anId',
-    title: 'My Article',
-    text: 'This is my first article',
+    title: 'My Poll',
+    text: 'This is my first poll',
     tags: ['tag1', 'tag2'],
     userId: 'aUserId',
     ...req
@@ -20,10 +20,10 @@ const createArticleRequestFixture = (req?: any) => ({
 const UserRepository = require('./api/repository/user.repository');
 jest.mock('./api/repository/user.repository');
 
-const ArticleRepository = require('./api/repository/article.repository');
-jest.mock('./api/repository/article.repository');
+const PollRepository = require('./api/repository/poll.repository');
+jest.mock('./api/repository/poll.repository');
 
-describe('Workast app', () => {
+describe('app', () => {
 
     const DEFAULT_API_KEY = process.env.API_KEY;
     const TEST_API_KEY = 'TEST_API_KEY';
@@ -129,7 +129,7 @@ describe('Workast app', () => {
         });
     });
 
-    describe('POST /articles', () => {
+    describe('POST /polls', () => {
 
         beforeEach(() => {
             jest.resetModules();
@@ -145,38 +145,38 @@ describe('Workast app', () => {
                 .post(apiEndpoints.users)
                 .set('Accept', 'application/json')
                 .set('x-api-key', TEST_API_KEY)
-                .send(createArticleRequestFixture({userId: undefined}))
+                .send(createPollRequestFixture({userId: undefined}))
                 .expect('Content-Type', /json/)
                 .expect(400);
         });
 
-        it('should return 200 for valid articles', async () => {
-            const createArticle = jest.fn();
-            createArticle.mockReturnValueOnce(new Promise (resolve => resolve({
+        it('should return 200 for valid polls', async () => {
+            const createPoll = jest.fn();
+            createPoll.mockReturnValueOnce(new Promise (resolve => resolve({
                 '_id': 'anId',
-                'title': 'My Article',
-                'text': 'This is my first article',
+                'title': 'My Poll',
+                'text': 'This is my first poll',
                 'tags': ['tag1', 'tag2'],
                 'userId': 'aUserId'
             })));
-            ArticleRepository.ArticleRepository.create = createArticle;
+            PollRepository.PollRepository.create = createPoll;
             await request(app)
-                .post(apiEndpoints.articles)
+                .post(apiEndpoints.polls)
                 .set('Accept', 'application/json')
                 .set('x-api-key', TEST_API_KEY)
-                .send(createArticleRequestFixture())
+                .send(createPollRequestFixture())
                 .expect('Content-Type', /json/)
                 .expect(200, {
                     id: 'anId',
-                    title: 'My Article',
-                    text: 'This is my first article',
+                    title: 'My Poll',
+                    text: 'This is my first poll',
                     tags: ['tag1', 'tag2'],
                     userId: 'aUserId'
                 });
         });
     });
 
-    describe('PUT /articles', () => {
+    describe('PUT /polls', () => {
 
         beforeEach(() => {
             jest.resetModules();
@@ -189,49 +189,49 @@ describe('Workast app', () => {
 
         it('should return 400 a users when the request body does not have a userId', async () => {
             await request(app)
-                .put(apiEndpoints.articles  + '/anId')
+                .put(apiEndpoints.polls  + '/anId')
                 .set('Accept', 'application/json')
                 .set('x-api-key', TEST_API_KEY)
-                .send(createArticleRequestFixture({userId: undefined}))
+                .send(createPollRequestFixture({userId: undefined}))
                 .expect('Content-Type', /json/)
                 .expect(400);
         });
 
-        it('should return 404 when the article id is not found', async () => {
-            const updateArticle = jest.fn();
-            updateArticle.mockReturnValueOnce(new Promise (resolve => resolve(null)));
-            ArticleRepository.ArticleRepository.update = updateArticle;
+        it('should return 404 when the poll id is not found', async () => {
+            const updatePoll = jest.fn();
+            updatePoll.mockReturnValueOnce(new Promise (resolve => resolve(null)));
+            PollRepository.PollRepository.update = updatePoll;
             await request(app)
-                .put(apiEndpoints.articles)
+                .put(apiEndpoints.polls)
                 .set('Accept', 'application/json')
                 .set('x-api-key', TEST_API_KEY)
-                .send(createArticleRequestFixture())
+                .send(createPollRequestFixture())
                 .expect('Content-Type', /json/)
                 .expect(404);
         });
 
-        it('should return 200 when the article id is found', async () => {
+        it('should return 200 when the poll id is found', async () => {
 
-            const updateArticle = jest.fn();
-            updateArticle.mockReturnValueOnce(new Promise (resolve => resolve({
+            const updatePoll = jest.fn();
+            updatePoll.mockReturnValueOnce(new Promise (resolve => resolve({
                 '_id': 'anId',
-                'title': 'My Article',
-                'text': 'This is my first article',
+                'title': 'My Poll',
+                'text': 'This is my first poll',
                 'tags': ['tag1', 'tag2'],
                 'userId': 'aUserId'
             })));
-            ArticleRepository.ArticleRepository.update = updateArticle;
+            PollRepository.PollRepository.update = updatePoll;
             await request(app)
-                .put(apiEndpoints.articles + '/anId')
+                .put(apiEndpoints.polls + '/anId')
                 .set('Accept', 'application/json')
                 .set('x-api-key', TEST_API_KEY)
-                .send(createArticleRequestFixture({'text': 'changedText'}))
+                .send(createPollRequestFixture({'text': 'changedText'}))
                 .expect('Content-Type', /json/)
                 .expect(200);
         });
     });
 
-    describe('DELETE /articles', () => {
+    describe('DELETE /polls', () => {
 
         beforeEach(() => {
             jest.resetModules();
@@ -242,25 +242,25 @@ describe('Workast app', () => {
             process.env.API_KEY = DEFAULT_API_KEY;
         });
 
-        it('should return 404 when the article id is not found', async () => {
-            const deleteArticle = jest.fn();
-            deleteArticle.mockReturnValueOnce(Promise.resolve(0));
-            ArticleRepository.ArticleRepository.delete = deleteArticle;
+        it('should return 404 when the poll id is not found', async () => {
+            const deletePoll = jest.fn();
+            deletePoll.mockReturnValueOnce(Promise.resolve(0));
+            PollRepository.PollRepository.delete = deletePoll;
             await request(app)
-                .delete(apiEndpoints.articles + '/notValid')
+                .delete(apiEndpoints.polls + '/notValid')
                 .set('x-api-key', TEST_API_KEY)
                 .send()
                 .expect('Content-Type', /json/)
                 .expect(404);
         });
 
-        it('should return 200 when the article id is found', async () => {
+        it('should return 200 when the poll id is found', async () => {
 
-            const deleteArticle = jest.fn();
-            deleteArticle.mockReturnValueOnce(Promise.resolve(1));
-            ArticleRepository.ArticleRepository.delete = deleteArticle;
+            const deletePoll = jest.fn();
+            deletePoll.mockReturnValueOnce(Promise.resolve(1));
+            PollRepository.PollRepository.delete = deletePoll;
             await request(app)
-                .delete(apiEndpoints.articles + '/notValid')
+                .delete(apiEndpoints.polls + '/notValid')
                 .set('x-api-key', TEST_API_KEY)
                 .send()
                 .expect('Content-Type', /json/)
@@ -268,7 +268,7 @@ describe('Workast app', () => {
         });
     });
 
-    describe('GET /articles', () => {
+    describe('GET /polls', () => {
 
         beforeEach(() => {
             jest.resetModules();
@@ -281,58 +281,58 @@ describe('Workast app', () => {
 
         it('should return 400 when the request does not have at least one tag as query param', async () => {
             await request(app)
-                .get(apiEndpoints.articles)
+                .get(apiEndpoints.polls)
                 .set('Accept', 'application/json')
                 .set('x-api-key', TEST_API_KEY)
                 .expect(400);
         });
 
-        it('should return 200 when the article has one tag', async () => {
+        it('should return 200 when the poll has one tag', async () => {
 
-            const getArticles = jest.fn();
-            getArticles.mockReturnValueOnce(Promise.resolve({
+            const getPolls = jest.fn();
+            getPolls.mockReturnValueOnce(Promise.resolve({
                 '_id': 'anId',
-                'title': 'My Article',
-                'text': 'This is my first article',
+                'title': 'My Poll',
+                'text': 'This is my first poll',
                 'tags': ['tag1', 'tag2'],
                 'userId': 'aUserId'
             }));
-            ArticleRepository.ArticleRepository.getByTags = getArticles;
+            PollRepository.PollRepository.getByTags = getPolls;
             await request(app)
-                .get(apiEndpoints.articles)
+                .get(apiEndpoints.polls)
                 .query({'tag': 'tag1'})
                 .set('x-api-key', TEST_API_KEY)
                 .expect('Content-Type', /json/)
                 .expect(200, [{
                     'id': 'anId',
-                    'title': 'My Article',
-                    'text': 'This is my first article',
+                    'title': 'My Poll',
+                    'text': 'This is my first poll',
                     'tags': ['tag1', 'tag2'],
                     'userId': 'aUserId'
                 }]);
         });
 
-        it('should return 200 when the article has many tags', async () => {
+        it('should return 200 when the poll has many tags', async () => {
 
-            const getArticles = jest.fn();
-            getArticles.mockReturnValueOnce(Promise.resolve({
+            const getPolls = jest.fn();
+            getPolls.mockReturnValueOnce(Promise.resolve({
                 '_id': 'anId',
-                'title': 'My Article',
-                'text': 'This is my first article',
+                'title': 'My Poll',
+                'text': 'This is my first poll',
                 'tags': ['tag1', 'tag2'],
                 'userId': 'aUserId'
             }));
-            ArticleRepository.ArticleRepository.getByTags = getArticles;
+            PollRepository.PollRepository.getByTags = getPolls;
             await request(app)
-                .get(apiEndpoints.articles)
+                .get(apiEndpoints.polls)
                 .query({'tag': 'tag1'})
                 .query({'tag': 'tag2'})
                 .set('x-api-key', TEST_API_KEY)
                 .expect('Content-Type', /json/)
                 .expect(200, [{
                     'id': 'anId',
-                    'title': 'My Article',
-                    'text': 'This is my first article',
+                    'title': 'My Poll',
+                    'text': 'This is my first poll',
                     'tags': ['tag1', 'tag2'],
                     'userId': 'aUserId'
                 }]);

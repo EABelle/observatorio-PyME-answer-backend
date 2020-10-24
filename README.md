@@ -14,13 +14,13 @@ Also, as you'll need **docker-compose** to run it with a MongoDB container:
 
 #### Run
 
-**The following environvent variables are necessary:**
+**The following environment variables are necessary:**
 
 - `NODE_ENV`: (`NODE_ENV=production`) 
 - `PORT`: The port which the server will be listening (`example: 8080`)
 - `EXTERNAL_SERVER_PORT`: The port which binds the application port with the docker ports (`example: 8080`)
 - `DOCKER_SERVER_PORTS`: The **ports** value for the web app section of the `docker-compose.yml`, which matches with EXTERNAL_SERVER_PORT:PORT (i.e.: `8080:8080`) 
-- `MONGODB_URI`: The uri for the app to connect to the database (i.e.: `mongodb://localhost:270127/workast`)
+- `MONGODB_URI`: The uri for the app to connect to the database (i.e.: `mongodb://localhost:270127/observatorio-pyme`)
 - `DOCKER_MONGO_PORTS`: The **ports** value for the mongo section of the `docker-compose.yml`, the value of the right has to match with the port of the URI (i.e.: `270127:27017`)
 - `API_KEY`: The value of the header which has to match to authorize the requests. (i.e. `5CD4ED173E1C95FE763B753A297D5`).
 
@@ -37,7 +37,7 @@ SERVER_MONGODB_PORT=27017
 EXTERNAL_MONGODB_PORT=27017
 DOCKER_MONGO_PORTS=27017:27017
 
-MONGODB_URI=mongodb://mongo:27017/workast
+MONGODB_URI=mongodb://mongo:27017/observatorio-pyme
 
 API_KEY=5CD4ED173E1C95FE763B753A297D5
 ```
@@ -99,9 +99,9 @@ The followings are the HTTP methods and endpoints of the API:
   ```
   ***name** field is mandatory
 
-- `POST /articles`
+- `POST /polls`
 
-  Creates a new article
+  Creates a new poll
 
   - body:
   ```typescript
@@ -116,13 +116,13 @@ The followings are the HTTP methods and endpoints of the API:
 
 - `GET /users?tag=tag1&tag=tag2&...`
     
-    Receives an array of `tag`'s (as query params: `?tag=tag1&tag=tag2&...`) and returns all articles (from all users) that contains the given tag(s) (1 or more)
+    Receives an array of `tag`'s (as query params: `?tag=tag1&tag=tag2&...`) and returns all polls (from all users) that contains the given tag(s) (1 or more)
 
     - Query params:
         - `tag`: it can be multiple, as the server takes them as an array.
 - `PUT /users/:id`
 
-  Updates an article. The body of the request is the full new article.
+  Updates a poll. The body of the request is the full new poll.
   
   - body:
     ```typescript
@@ -133,12 +133,12 @@ The followings are the HTTP methods and endpoints of the API:
           "tags": string[],
        }
     ```
-  - params: `/:id`: The id of the article
+  - params: `/:id`: The id of the poll
 
 - `DELETE /users/:id`
 
-  Deletes an article. 
-  - params: `/:id`: The id of the article
+  Deletes a poll. 
+  - params: `/:id`: The id of the poll
 
 #### GraphQL
 The GraphiQL API is exposed at `/graphql`

@@ -1,21 +1,3 @@
-export interface UserPayload {
-    avatar: string;
-    name: string;
-}
-
-export interface UserResponse {
-    id: string;
-    avatar: string;
-    name: string;
-}
-
-export interface PollPayload {
-    userId: string;
-    text?: string;
-    title?: string;
-    tags?: string[];
-}
-
 export enum Status {
     COMPLETE = 'COMPLETE',
     IN_PROGRESS = 'IN_PROGRESS',
@@ -37,7 +19,7 @@ export interface Restrictions {
 }
 
 export interface Question {
-    type: string;
+    type: QuestionType;
     title: string;
     value: any;
     mandatory: boolean;
@@ -54,10 +36,10 @@ export interface Section {
     questions: Question[];
 }
 
-export interface PollResponse {
-    id: string;
+export interface Poll {
+    _id: string;
     company: {
-        id: string;
+        _id: string;
         name: string;
     };
     name: string;

@@ -1,10 +1,10 @@
-import {ArticleRepository} from '../article.repository';
+import {PollRepository} from '../poll.repository';
 import {
-    article1,
-    articleUpdatePayload,
-    articleWithEmptyTags,
-    articleWithoutText,
-    articleWithoutTitle, articleWithoutUserId,
+    poll1,
+    pollUpdatePayload,
+    pollWithEmptyTags,
+    pollWithoutText,
+    pollWithoutTitle, pollWithoutUserId,
 } from '../__mocks__';
 import {dbHandler} from '../../../utils';
 
@@ -12,40 +12,40 @@ beforeAll(async () => await dbHandler.connect());
 afterEach(async () => await dbHandler.clearDatabase());
 afterAll(async () => await dbHandler.closeDatabase());
 
-describe('ArticleRepository ', () => {
+describe('PollRepository ', () => {
 
     describe('on create method', () => {
 
         it('can create correctly', async () => {
-            await expect(() => ArticleRepository.create(article1))
+            await expect(() => PollRepository.create(poll1))
                 .not
                 .toThrow();
         });
 
         it(`can create without a title`, async () => {
             // @ts-ignore
-            await expect(() => ArticleRepository.create(articleWithoutTitle))
+            await expect(() => PollRepository.create(pollWithoutTitle))
                 .not
                 .toThrow();
         });
 
         it(`can create without a text`, async () => {
             // @ts-ignore
-            await expect(() => ArticleRepository.create(articleWithoutText))
+            await expect(() => PollRepository.create(pollWithoutText))
                 .not
                 .toThrow();
         });
 
         it(`can create with empty tags`, async () => {
             // @ts-ignore
-            await expect(() => ArticleRepository.create(articleWithEmptyTags))
+            await expect(() => PollRepository.create(pollWithEmptyTags))
                 .not
                 .toThrow();
         });
 
         it(`can't create without a userId`, async () => {
             // @ts-ignore
-            await expect(ArticleRepository.create(articleWithoutUserId))
+            await expect(PollRepository.create(pollWithoutUserId))
                 .rejects
                 .toThrow();
         });
@@ -53,8 +53,8 @@ describe('ArticleRepository ', () => {
 
     describe('on update method', () => {
         it('can update', async () => {
-            const article = await ArticleRepository.create(article1);
-            await expect(() => ArticleRepository.update(article._id, articleUpdatePayload))
+            const poll = await PollRepository.create(poll1);
+            await expect(() => PollRepository.update(poll._id, pollUpdatePayload))
                 .not
                 .toThrow();
         });
@@ -62,8 +62,8 @@ describe('ArticleRepository ', () => {
 
     describe('on delete method', () => {
         it('can delete the document', async () => {
-            const article = await ArticleRepository.create(article1);
-            await expect(() => ArticleRepository.delete(article._id))
+            const poll = await PollRepository.create(poll1);
+            await expect(() => PollRepository.delete(poll._id))
                 .not
                 .toThrow();
         });
