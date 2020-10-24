@@ -1,3 +1,6 @@
+import pollMock from './poll_1.mock.json';
+import {PollPayload} from '../../contract';
+
 export const user1 = {
     name: 'User 1',
     avatar: 'user1.jpg',
@@ -11,41 +14,11 @@ export const userWithoutAvatar = {
     name: 'User 1',
 };
 
-export const poll1 = {
-    'title': 'My Poll',
-    'text': 'This is my first poll',
-    'tags': ['tag1', 'tag2'],
-    'userId': '5ddc3ea01614280e2846d3d8'
-};
+export const poll1: PollPayload = <PollPayload>pollMock;
 
-export const pollWithoutTitle = {
-    'text': 'This is my first poll',
-    'tags': ['tag1', 'tag2'],
-    'userId': '5ddc3ea01614280e2846d3d8'
-};
+export const { sections: _, ...pollWithoutSections } = poll1;
 
-export const pollWithoutText = {
-    'title': 'My Poll',
-    'tags': ['tag1', 'tag2'],
-    'userId': '5ddc3ea01614280e2846d3d8'
-};
-
-export const pollWithoutUserId = {
-    'title': 'My Poll',
-    'text': 'This is my first poll',
-    'tags': ['tag1', 'tag2'],
-};
-
-export const pollWithEmptyTags = {
-    'title': 'My Poll',
-    'text': 'This is my first poll',
-    'tags': [],
-    'userId': '5ddc3ea01614280e2846d3d8'
-};
-
-export const pollUpdatePayload = {
-    'title': 'My Poll2',
-    'text': 'This is my second poll',
-    'tags': ['tag1', 'tag2', 'tag3'],
-    'userId': '5ddc3ea01614280e2846d3d8'
+export const pollUpdatePayload = <PollPayload>{
+    name: 'My Poll2',
+    description: 'This is my second poll',
 };

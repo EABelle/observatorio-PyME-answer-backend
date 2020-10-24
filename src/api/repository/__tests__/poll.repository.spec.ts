@@ -2,9 +2,7 @@ import {PollRepository} from '../poll.repository';
 import {
     poll1,
     pollUpdatePayload,
-    pollWithEmptyTags,
-    pollWithoutText,
-    pollWithoutTitle, pollWithoutUserId,
+    pollWithoutSections,
 } from '../__mocks__';
 import {dbHandler} from '../../../utils';
 
@@ -22,30 +20,9 @@ describe('PollRepository ', () => {
                 .toThrow();
         });
 
-        it(`can create without a title`, async () => {
+        it(`can't create without sections`, async () => {
             // @ts-ignore
-            await expect(() => PollRepository.create(pollWithoutTitle))
-                .not
-                .toThrow();
-        });
-
-        it(`can create without a text`, async () => {
-            // @ts-ignore
-            await expect(() => PollRepository.create(pollWithoutText))
-                .not
-                .toThrow();
-        });
-
-        it(`can create with empty tags`, async () => {
-            // @ts-ignore
-            await expect(() => PollRepository.create(pollWithEmptyTags))
-                .not
-                .toThrow();
-        });
-
-        it(`can't create without a userId`, async () => {
-            // @ts-ignore
-            await expect(PollRepository.create(pollWithoutUserId))
+            await expect(PollRepository.create(pollWithoutSections))
                 .rejects
                 .toThrow();
         });

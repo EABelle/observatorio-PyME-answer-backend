@@ -9,12 +9,6 @@ export interface UserResponse {
     name: string;
 }
 
-export interface PollPayload {
-    userId: string;
-    text?: string;
-    title?: string;
-    tags?: string[];
-}
 
 export enum Status {
     COMPLETE = 'COMPLETE',
@@ -52,6 +46,18 @@ export interface Section {
     title: string;
     description: string;
     questions: Question[];
+}
+
+export interface PollPayload {
+    company?: {
+        id: string;
+        name: string;
+    };
+    created?: string;
+    name: string;
+    description: string;
+    status: Status;
+    sections: Section[];
 }
 
 export interface PollResponse {
