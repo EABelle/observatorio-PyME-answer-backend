@@ -71,3 +71,5 @@ typings/
 dist
 
 data
+package-lock.json
+globalConfig.json

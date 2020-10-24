@@ -8,7 +8,7 @@
     "lint:fix": "tslint --config tslint.json ./src/**.ts --fix",
     "test": "jest --config ./jest.config.js --detectOpenHandles --runInBand src",
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly src/bin/www.ts",
+    "dev": "ts-node-dev src/bin/www.ts --respawn --transpileOnly",
     "prod": "rm -rf dist && tsc -p . && node ./dist/bin/www"
   },
   "repository": {

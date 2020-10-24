@@ -12,7 +12,7 @@ export class ArticleController {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const tags: string[] = req.query.tag;
+        const tags: string[] = <string[]>req.query.tag;
         try {
             const articles: Article[] = await ArticleService.getArticles(tags);
             const articlesResponse: ArticleResponse[] = transformList(articles);
