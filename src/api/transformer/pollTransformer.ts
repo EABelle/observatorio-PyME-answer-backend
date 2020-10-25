@@ -2,14 +2,15 @@ import {Poll} from '../../core/domain/Poll';
 import {PollResponse} from '../contract';
 
 export function transform(poll: Poll): PollResponse {
-    return {
-        ...poll,
-        id: poll._id,
-        company: {
-            ...poll.company,
-            id: poll.company._id,
-        },
+    const { _id, company, ...pollDetails } = poll;
+    const response: PollResponse = {
+        ...pollDetails,
+        id: poll._id
     };
+    if (company) {
+        response.company = company;
+    }
+    return response;
 }
 
 export function transformList(polls: Poll[]): PollResponse[] {

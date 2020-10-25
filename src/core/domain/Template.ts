@@ -1,9 +1,3 @@
-export enum Status {
-    COMPLETE = 'COMPLETE',
-    IN_PROGRESS = 'IN_PROGRESS',
-    NOT_STARTED = 'NOT_STARTED',
-}
-
 export enum QuestionType {
     TEXT = 'TEXT',
     NUMBER = 'NUMBER',
@@ -21,7 +15,7 @@ export interface Restrictions {
 export interface Question {
     type: QuestionType;
     title: string;
-    value: any;
+    value: null;
     mandatory: boolean;
     options: string[];
     description: string;
@@ -36,15 +30,10 @@ export interface Section {
     questions: Question[];
 }
 
-export interface Poll {
+export interface Template {
     _id: string;
-    company: {
-        id: string;
-        name: string;
-    };
     name: string;
     description: string;
-    status: Status;
     created: string;
     modified: string;
     sections: Section[];

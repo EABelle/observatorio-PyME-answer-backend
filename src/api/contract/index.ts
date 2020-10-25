@@ -60,15 +60,40 @@ export interface PollPayload {
     sections: Section[];
 }
 
+export interface TemplatePayload {
+    created?: string;
+    name: string;
+    description: string;
+    sections: Section[];
+}
+
 export interface PollResponse {
     id: string;
-    company: {
+    company?: {
         id: string;
         name: string;
     };
     name: string;
     description: string;
     status: Status;
+    created: string;
+    modified: string;
+    sections: Section[];
+}
+
+export interface TemplateResponse {
+    id: string;
+    name: string;
+    description: string;
+    created: string;
+    modified: string;
+    sections: Section[];
+}
+
+export interface ExternalTemplateResponse {
+    id: string;
+    name: string;
+    description: string;
     created: string;
     modified: string;
     sections: Section[];

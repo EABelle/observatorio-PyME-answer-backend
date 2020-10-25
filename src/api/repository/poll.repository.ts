@@ -6,8 +6,8 @@ export class PollRepository {
 
     static async create(pollPayload: PollPayload): Promise<Poll> {
         const pollModel = new PollModel(pollPayload);
-        const poll: Poll = await pollModel.save();
-        return poll;
+        const poll = await pollModel.save();
+        return poll.toObject();
     }
 
     static async update(id: string, payload: PollPayload): Promise<Poll | null> {
@@ -27,8 +27,8 @@ export class PollRepository {
         return deletedCount;
     }
 
-    static async getByTags(tags: string[]): Promise<Poll | Poll[]> {
-        const polls = await PollModel.find({tags: { $all: tags }});
-        return polls;
+    static async getById(id: string): Promise<Poll> {
+        const poll = await PollModel.findOne({_id: id});
+        return poll.toObject();
     }
 }

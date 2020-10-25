@@ -1,6 +1,6 @@
 import {Application} from 'express';
-import {pollRouter, userRouter} from './api/router';
-import {apiEndpoints} from './api/config';
+import {pollRouter, userRouter, externalRouter, templateRouter} from './api/router';
+import {apiEndpoints, externalApiEndpoints} from './api/config';
 import {accessControl} from './common/access-control';
 import {fourOFourMiddleware} from './common/404-middleware';
 import {authorization} from './common/authorization';
@@ -17,10 +17,11 @@ app
     .use(bodyParser.urlencoded({extended: false}))
     .use(bodyParser.json())
     .use(accessControl)
-    .use(authorization)
     .use('/graphql', graphqlMiddleware)
     .use(apiEndpoints.polls, pollRouter)
+    .use(apiEndpoints.templates, templateRouter)
     .use(apiEndpoints.users, userRouter)
+    .use(externalApiEndpoints.polls, authorization, externalRouter)
     .use(fourOFourMiddleware);
 
 export default app;

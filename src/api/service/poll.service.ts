@@ -4,10 +4,8 @@ import {Poll} from '../../core/domain/Poll';
 
 export class PollService {
 
-    static async getPolls(tags: string[]): Promise<Poll[]> {
-        const polls: Poll | Poll[] = await PollRepository.getByTags(tags);
-        // @ts-ignore
-        return polls.hasOwnProperty('length') ? polls : [polls];
+    static getPoll(id: string): Promise<Poll> {
+        return PollRepository.getById(id);
     }
 
     static async createPoll(pollPayload: PollPayload): Promise<Poll> {

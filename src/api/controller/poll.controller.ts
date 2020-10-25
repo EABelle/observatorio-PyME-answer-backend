@@ -3,20 +3,20 @@ import {PollPayload, PollResponse} from '../contract';
 import {Poll} from '../../core/domain/Poll';
 import {PollService} from '../service/poll.service';
 import {validationResult} from 'express-validator';
-import {transform, transformList} from '../transformer/pollTransformer';
+import {transform} from '../transformer/pollTransformer';
 
 export class PollController {
 
-    public static async getPolls(req: Request, res: Response, next: NextFunction) {
+    public static async getPoll(req: Request, res: Response, next: NextFunction) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const tags: string[] = <string[]>req.query.tag;
+        const id: string = req.params.id;
         try {
-            const polls: Poll[] = await PollService.getPolls(tags);
-            const pollsResponse: PollResponse[] = transformList(polls);
-            res.json(pollsResponse);
+            const poll: Poll = await PollService.getPoll(id);
+            const response: PollResponse = transform(poll);
+            res.json(response);
         } catch (e) {
             next(new Error(e.message));
         }
