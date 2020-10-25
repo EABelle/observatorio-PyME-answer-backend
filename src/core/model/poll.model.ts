@@ -3,6 +3,8 @@ import {templatePreSchema} from './template.model';
 
 const mongoose = require('mongoose');
 
+const {externalId: _templateExternalId, ...pollPreSchema} = templatePreSchema;
+
 const pollSchema = new mongoose.Schema({
     company: {
         id: {
@@ -20,7 +22,7 @@ const pollSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Template',
     },
-    ...templatePreSchema
+    ...pollPreSchema,
 });
 
 export const PollModel = mongoose.model('Poll', pollSchema);

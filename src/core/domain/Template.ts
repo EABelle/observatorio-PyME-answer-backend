@@ -15,7 +15,7 @@ export interface Restrictions {
 export interface Question {
     type: QuestionType;
     title: string;
-    value: null;
+    value: any;
     mandatory: boolean;
     options: string[];
     description: string;
@@ -31,7 +31,8 @@ export interface Section {
 }
 
 export interface Template {
-    _id: string;
+    _id?: string;
+    externalId: string;
     name: string;
     description: string;
     created: string;

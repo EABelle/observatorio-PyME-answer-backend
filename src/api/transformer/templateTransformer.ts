@@ -1,7 +1,7 @@
 import {Template} from '../../core/domain/Template';
-import {TemplateResponse} from '../contract';
+import {ExternalTemplateResponse, TemplateResponse} from '../contract';
 
-export function transform(template: Template): TemplateResponse {
+export function transformToResponse(template: Template): TemplateResponse {
     const { _id, ...templateDetails } = template;
     return {
         ...templateDetails,
@@ -9,6 +9,14 @@ export function transform(template: Template): TemplateResponse {
     };
 }
 
-export function transformList(templates: Template[]): TemplateResponse[] {
-    return templates.map(template => transform(template));
+export function transformFromExternalResponse(externalTemplateResponse: ExternalTemplateResponse): Template {
+    const { id, ...templateDetails } = externalTemplateResponse;
+    return {
+        ...templateDetails,
+        externalId: id
+    };
+}
+
+export function transformListToResponse(templates: Template[]): TemplateResponse[] {
+    return templates.map(template => transformToResponse(template));
 }

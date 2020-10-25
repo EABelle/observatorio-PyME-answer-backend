@@ -31,7 +31,7 @@ export interface Restrictions {
 }
 
 export interface Question {
-    type: string;
+    type: QuestionType;
     title: string;
     value: any;
     mandatory: boolean;
@@ -82,7 +82,8 @@ export interface PollResponse {
 }
 
 export interface TemplateResponse {
-    id: string;
+    id?: string;
+    externalId: string;
     name: string;
     description: string;
     created: string;

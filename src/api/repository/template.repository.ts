@@ -20,6 +20,11 @@ export class TemplateRepository {
         return poll.toObject();
     }
 
+    static async getByExternalId(id: string): Promise<Template> {
+        const poll = await TemplateModel.findOne({externalId: id});
+        return poll.toObject();
+    }
+
     static async getAll(): Promise<Template[]> {
         const poll = await TemplateModel.find({});
         return poll.toObject();

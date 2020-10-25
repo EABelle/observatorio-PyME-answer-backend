@@ -46,6 +46,7 @@ export const templatePreSchema = {
     created: String,
     modified: String,
     sections: [sectionSchema],
+    externalId: String,
 };
 
 const templateSchema = new mongoose.Schema(templatePreSchema);
