@@ -1,1 +1,1 @@
-web: npm run prod
+web: npm i -g tsc@3.9.7 && npm run prod
