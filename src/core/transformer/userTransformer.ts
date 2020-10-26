@@ -1,5 +1,5 @@
-import {UserResponse} from '../contract';
-import {User} from '../../core/domain/User';
+import {UserResponse} from '../../api/contract';
+import {User} from '../domain/User';
 
 export function transform(user: User): UserResponse {
     return {

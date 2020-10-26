@@ -1,8 +1,8 @@
-import {UserService} from './user.service';
-import CacheService from '../../core/services/CacheService';
+import {UserService} from './UserService';
+import CacheService from './CacheService';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import {User} from '../../core/domain/User';
+import {User} from '../domain/User';
 
 const ONE_DAY = 86400;
 

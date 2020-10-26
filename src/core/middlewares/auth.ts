@@ -1,7 +1,7 @@
-import CacheService from '../services/CacheService';
+import CacheService from '../service/CacheService';
 import {NextFunction, Response} from 'express';
 import {asyncHandler, CustomRequest} from './utils';
-import {UserService} from '../../api/service/user.service';
+import {UserService} from '../service/UserService';
 
 const authMiddleware = (permission?: string) => async (req: CustomRequest, res: Response, next: NextFunction) => {
     try {

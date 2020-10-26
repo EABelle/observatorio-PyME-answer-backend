@@ -1,4 +1,4 @@
-import {LoginService} from '../service/LoginService';
+import {LoginService} from '../../core/service/LoginService';
 import {Request, Response} from 'express';
 
 function login(req: Request, res: Response) {

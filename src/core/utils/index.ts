@@ -1,4 +1,4 @@
-import {keysAsync} from '../data/RedisClient';
+import {keysAsync} from '../../data/RedisClient';
 
 export function generateSetUserKey(encryptedToken: string, userId: string) {
     return `USER_${encryptedToken}_${userId}`;

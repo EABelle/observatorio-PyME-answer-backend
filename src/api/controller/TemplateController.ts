@@ -1,9 +1,9 @@
 import {NextFunction, Response, Request} from 'express';
 import {TemplatePayload, TemplateResponse} from '../contract';
 import {Template} from '../../core/domain/Template';
-import {TemplateService} from '../service/template.service';
+import {TemplateService} from '../../core/service/TemplateService';
 import {validationResult} from 'express-validator';
-import {transformToResponse, transformListToResponse, transformFromPayload} from '../transformer/templateTransformer';
+import {transformToResponse, transformListToResponse, transformFromPayload} from '../../core/transformer/templateTransformer';
 
 export class TemplateController {
 
@@ -35,6 +35,18 @@ export class TemplateController {
         }
     }
 
+    public static async getExternalTemplateIds(req: Request, res: Response, next: NextFunction) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        try {
+            const externalTemplateIds: String[] = await TemplateService.getExternalTemplateIds();
+            res.json(externalTemplateIds);
+        } catch (e) {
+            next(new Error(e.message));
+        }
+    }
     public static async createTemplate(req: Request, res: Response, next: NextFunction) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

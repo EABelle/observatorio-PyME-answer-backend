@@ -1,5 +1,5 @@
-import {Poll} from '../../core/domain/Poll';
-import {PollResponse} from '../contract';
+import {Poll} from '../domain/Poll';
+import {PollResponse} from '../../api/contract';
 
 export function transform(poll: Poll): PollResponse {
     const { _id, company, ...pollDetails } = poll;

@@ -1,6 +1,6 @@
-import {RoleRepository} from '../repository/role.repository';
-import {Role} from '../../core/domain/Role';
-import {RolePayload} from '../contract';
+import {RoleRepository} from '../../data/repository/role.repository';
+import {Role} from '../domain/Role';
+import {RolePayload} from '../../api/contract';
 
 export class RoleService {
     static async createRole(rolePayload: RolePayload): Promise<Role> {

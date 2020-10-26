@@ -17,10 +17,10 @@ const createPollRequestFixture = (req?: any) => ({
     ...req
 });
 
-const UserRepository = require('./api/repository/user.repository');
+const UserRepository = require('./data/repository/user.repository');
 jest.mock('./api/repository/user.repository');
 
-const PollRepository = require('./api/repository/poll.repository');
+const PollRepository = require('./data/repository/poll.repository');
 jest.mock('./api/repository/poll.repository');
 
 describe('app', () => {

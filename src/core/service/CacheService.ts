@@ -3,7 +3,7 @@ import {
     getAsync,
     keysAsync,
     setAsync
-} from '../data/RedisClient';
+} from '../../data/RedisClient';
 import {generateGetUserKey, generateSetUserKey} from '../utils';
 import {User} from '../domain/User';
 

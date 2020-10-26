@@ -1,7 +1,7 @@
 import {Router} from 'express';
-import {UserController} from '../controller/user.controller';
-import {PollController} from '../controller/poll.controller';
-import {TemplateController} from '../controller/template.controller';
+import {UserController} from '../controller/UserController';
+import {PollController} from '../controller/PollController';
+import {TemplateController} from '../controller/TemplateController';
 import {param, body} from 'express-validator';
 import authMiddleware from '../../core/middlewares/auth';
 import permissions from './permissions';
@@ -33,6 +33,7 @@ export const pollRouter: Router = Router()
 
 export const templateRouter: Router = Router()
     .get('/', authMiddleware(permissions.template.READ), TemplateController.getTemplates)
+    .get('/external-ids', authMiddleware(permissions.template.READ), TemplateController.getExternalTemplateIds)
     .get('/:id', authMiddleware(permissions.template.READ), validations.template.get, TemplateController.getTemplate)
     .post('/', authMiddleware(permissions.template.CREATE), validations.poll.post, TemplateController.createTemplate)
     .delete('/:id', authMiddleware(permissions.template.DELETE), validations.template.delete, TemplateController.deleteTemplate);

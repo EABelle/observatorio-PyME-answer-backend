@@ -97,14 +97,6 @@ export interface TemplateResponse {
     sections: Section[];
 }
 
-export interface ExternalTemplateResponse {
-    id: string;
-    name: string;
-    description: string;
-    created: string;
-    modified: string;
-    sections: Section[];
-}
 
 export interface RolePayload {
     name: string;

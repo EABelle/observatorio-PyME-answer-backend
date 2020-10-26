@@ -1,6 +1,6 @@
-import {PollPayload} from '../contract';
-import {PollRepository} from '../repository/poll.repository';
-import {Poll} from '../../core/domain/Poll';
+import {PollPayload} from '../../api/contract';
+import {PollRepository} from '../../data/repository/poll.repository';
+import {Poll} from '../domain/Poll';
 
 export class PollService {
 

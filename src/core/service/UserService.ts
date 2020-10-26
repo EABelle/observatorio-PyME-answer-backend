@@ -1,7 +1,7 @@
-import {User} from '../../core/domain/User';
-import {UserRepository} from '../repository/user.repository';
-import {UserPayload} from '../contract';
-import {RoleService} from './role.service';
+import {User} from '../domain/User';
+import {UserRepository} from '../../data/repository/user.repository';
+import {UserPayload} from '../../api/contract';
+import {RoleService} from './RoleService';
 import bcrypt from 'bcryptjs';
 
 export class UserService {

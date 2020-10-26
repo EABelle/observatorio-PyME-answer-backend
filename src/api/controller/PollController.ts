@@ -1,9 +1,9 @@
 import {NextFunction, Response, Request} from 'express';
 import {PollPayload, PollResponse} from '../contract';
 import {Poll} from '../../core/domain/Poll';
-import {PollService} from '../service/poll.service';
+import {PollService} from '../../core/service/PollService';
 import {validationResult} from 'express-validator';
-import {transform} from '../transformer/pollTransformer';
+import {transform} from '../../core/transformer/pollTransformer';
 
 export class PollController {
 

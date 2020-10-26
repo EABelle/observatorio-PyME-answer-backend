@@ -1,9 +1,9 @@
 import {NextFunction, Response, Request} from 'express';
-import {UserService} from '../service/user.service';
+import {UserService} from '../../core/service/UserService';
 import {User} from '../../core/domain/User';
 import {UserPayload, UserResponse} from '../contract';
 import {validationResult} from 'express-validator';
-import {transform} from '../transformer/userTransformer';
+import {transform} from '../../core/transformer/userTransformer';
 
 export class UserController {
 
