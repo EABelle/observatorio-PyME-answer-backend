@@ -32,10 +32,10 @@ export interface Section {
 
 export interface Template {
     _id?: string;
-    externalId: string;
+    externalId?: string;
+    modified?: string;
     name: string;
     description: string;
     created: string;
-    modified: string;
     sections: Section[];
 }

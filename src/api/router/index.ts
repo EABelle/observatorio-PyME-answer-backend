@@ -30,7 +30,9 @@ export const pollRouter: Router = Router()
     .delete('/:id', validations.poll.delete, PollController.deletePoll);
 
 export const templateRouter: Router = Router()
+    .get('/', TemplateController.getTemplates)
     .get('/:id', validations.template.get, TemplateController.getTemplate)
+    .post('/', validations.poll.post, TemplateController.createTemplate)
     .delete('/:id', validations.template.delete, TemplateController.deleteTemplate);
 
 export const externalRouter: Router = Router()

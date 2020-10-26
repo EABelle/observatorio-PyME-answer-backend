@@ -1,12 +1,16 @@
 export interface UserPayload {
-    avatar: string;
     name: string;
+    email: string;
+    avatar: string;
+    password: string;
+    roles: string[];
 }
 
 export interface UserResponse {
     id: string;
     avatar: string;
     name: string;
+    email: string;
 }
 
 
@@ -61,7 +65,9 @@ export interface PollPayload {
 }
 
 export interface TemplatePayload {
-    created?: string;
+    id?: string;
+    modified?: string;
+    created: string;
     name: string;
     description: string;
     sections: Section[];
@@ -83,11 +89,11 @@ export interface PollResponse {
 
 export interface TemplateResponse {
     id?: string;
-    externalId: string;
+    externalId?: string;
+    modified?: string;
     name: string;
     description: string;
     created: string;
-    modified: string;
     sections: Section[];
 }
 
@@ -99,3 +105,10 @@ export interface ExternalTemplateResponse {
     modified: string;
     sections: Section[];
 }
+
+export interface RolePayload {
+    name: string;
+    permissions: string[];
+}
+
+export interface RoleResponse extends RolePayload {}

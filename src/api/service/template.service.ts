@@ -1,4 +1,4 @@
-import {ExternalTemplateResponse, TemplatePayload} from '../contract';
+import {ExternalTemplateResponse} from '../contract';
 import {TemplateRepository} from '../repository/template.repository';
 import {Template} from '../../core/domain/Template';
 import {getTemplates} from '../externalApiClient';
@@ -29,14 +29,14 @@ export class TemplateService {
     }
 
     static async saveTemplateIfNew(template: Template): Promise<Template | null> {
-        const foundTemplate: Template = await this.getTemplateByExternalId(template.externalId);
+        const foundTemplate: Template = await this.getTemplateByExternalId(<string>template.externalId);
         if (!foundTemplate) {
             return await this.createTemplate(template);
         } return null;
     }
 
-    static createTemplate(templatePayload: TemplatePayload): Promise<Template> {
-        return TemplateRepository.create(templatePayload);
+    static createTemplate(template: Template): Promise<Template> {
+        return TemplateRepository.create(template);
     }
 
     static deleteTemplate(id: string): Promise<number> {

@@ -1,16 +1,18 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "noImplicitAny": true,
-    "target": "es2017",
-    "outDir": "../../build",
-    "module": "commonjs",
     "baseUrl": ".",
+    "downlevelIteration": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "outDir": "../../build",
     "paths": {
       "@shared/*": ["shared/*"],
       "@config": ["config/index.ts"]
     },
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "target": "es2017"
+
   },
   "exclude": ["**/*.spec.ts", "**/__mocks__"]
 }

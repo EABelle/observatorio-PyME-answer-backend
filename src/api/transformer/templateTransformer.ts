@@ -1,5 +1,5 @@
 import {Template} from '../../core/domain/Template';
-import {ExternalTemplateResponse, TemplateResponse} from '../contract';
+import {ExternalTemplateResponse, TemplatePayload, TemplateResponse} from '../contract';
 
 export function transformToResponse(template: Template): TemplateResponse {
     const { _id, ...templateDetails } = template;
@@ -14,6 +14,12 @@ export function transformFromExternalResponse(externalTemplateResponse: External
     return {
         ...templateDetails,
         externalId: id
+    };
+}
+
+export function transformFromPayload(templatePayload: TemplatePayload): Template {
+    return {
+        ...templatePayload,
     };
 }
 

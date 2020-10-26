@@ -1,11 +1,10 @@
 import {TemplateModel} from '../../core/model/template.model';
-import {TemplatePayload} from '../contract';
 import {Template} from '../../core/domain/Template';
 
 export class TemplateRepository {
 
-    static async create(pollPayload: TemplatePayload): Promise<Template> {
-        const pollModel = new TemplateModel(pollPayload);
+    static async create(template: Template): Promise<Template> {
+        const pollModel = new TemplateModel(template);
         const poll = await pollModel.save();
         return poll.toObject();
     }

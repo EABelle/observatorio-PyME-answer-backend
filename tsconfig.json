@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "declaration": false,
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -13,10 +14,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist",
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
     "target": "es5",
-    "typeRoots": ["node_modules/@types"],
-    "resolveJsonModule": true
+    "typeRoots": ["node_modules/@types"]
   }
 }
