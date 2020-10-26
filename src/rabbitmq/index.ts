@@ -14,7 +14,7 @@ amqp.connect(AMQP_URL, (err: Error, connection: Connection) => {
         if (error) {
             throw error;
         }
-        const queue = 'dev';
+        const queue = 'templates';
         channel.assertQueue(queue, {
             durable: false
         });
