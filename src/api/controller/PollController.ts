@@ -3,9 +3,23 @@ import {PollPayload, PollResponse} from '../contract';
 import {Poll} from '../../core/domain/Poll';
 import {PollService} from '../../core/service/PollService';
 import {validationResult} from 'express-validator';
-import {transform} from '../../core/transformer/pollTransformer';
+import {transform, transformList} from '../../core/transformer/pollTransformer';
 
 export class PollController {
+
+    public static async getPolls(req: Request, res: Response, next: NextFunction) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        try {
+            const polls: Poll[] = await PollService.getPolls();
+            const pollsResponse: PollResponse[] = transformList(polls);
+            return res.json(pollsResponse);
+        } catch (e) {
+            return next(new Error(e.message));
+        }
+    }
 
     public static async getPoll(req: Request, res: Response, next: NextFunction) {
         const errors = validationResult(req);

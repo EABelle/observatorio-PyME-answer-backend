@@ -25,8 +25,11 @@ const validations = {
 };
 
 export const userRouter: Router = Router()
-    .get('/', validations.user.getMany, UserController.getUsers)
-    .post('/', authMiddleware(permissions.user.CREATE), validations.user.post, UserController.createUser);
+    .get('/:id', UserController.getUser)
+    .get('/', UserController.getUsers)
+    .post('/', UserController.createUser)
+    .put('/:id', UserController.updateUser)
+    .delete('/:id', UserController.deleteUser);
 
 export const roleRouter: Router = Router()
     .get('/:id', RoleController.getRole)
@@ -37,6 +40,7 @@ export const roleRouter: Router = Router()
 
 export const pollRouter: Router = Router()
     .get('/:id', authMiddleware(permissions.poll.READ), validations.poll.get, PollController.getPoll)
+    .get('/', PollController.getPolls)
     .post('/', authMiddleware(permissions.poll.CREATE), validations.poll.post, PollController.createPoll)
     .put('/:id', authMiddleware(permissions.poll.UPDATE), validations.poll.put, PollController.editPoll)
     .delete('/:id', authMiddleware(permissions.poll.DELETE), validations.poll.delete, PollController.deletePoll);
@@ -49,4 +53,5 @@ export const templateRouter: Router = Router()
     .delete('/:id', authMiddleware(permissions.template.DELETE), validations.template.delete, TemplateController.deleteTemplate);
 
 export const externalRouter: Router = Router()
+    .get('/', PollController.getPolls)
     .get('/:id', validations.poll.get, PollController.getPoll);
