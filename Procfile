@@ -1,1 +1,1 @@
-web: npm i -g tsc && npm run prod
+web: npm i -g typescript && npm run prod
