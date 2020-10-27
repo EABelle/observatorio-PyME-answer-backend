@@ -70,6 +70,6 @@ typings/
 #dist
 dist
 
-data
+/data
 package-lock.json
 globalConfig.json
