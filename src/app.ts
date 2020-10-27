@@ -1,5 +1,5 @@
 import {Application} from 'express';
-import {pollRouter, userRouter, externalRouter, templateRouter} from './api/router';
+import {pollRouter, userRouter, externalRouter, templateRouter, roleRouter} from './api/router';
 import {apiEndpoints, externalApiEndpoints} from './api/config';
 import {accessControl} from './core/middlewares/access-control';
 import {fourOFourMiddleware} from './core/middlewares/404-middleware';
@@ -22,6 +22,7 @@ app
     .use(apiEndpoints.polls, pollRouter)
     .use(apiEndpoints.templates, templateRouter)
     .use(apiEndpoints.users, userRouter)
+    .use(apiEndpoints.roles, roleRouter)
     .use(fourOFourMiddleware);
 
 export default app;

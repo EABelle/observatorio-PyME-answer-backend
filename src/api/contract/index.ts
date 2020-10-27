@@ -103,4 +103,6 @@ export interface RolePayload {
     permissions: string[];
 }
 
-export interface RoleResponse extends RolePayload {}
+export interface RoleResponse extends RolePayload {
+    id: string;
+}

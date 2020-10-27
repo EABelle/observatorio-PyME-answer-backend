@@ -1,7 +1,8 @@
 export const apiEndpoints = {
     polls: '/polls',
     templates: '/templates',
-    users: '/users'
+    users: '/users',
+    roles: '/roles',
 };
 
 export const externalApiEndpoints = {

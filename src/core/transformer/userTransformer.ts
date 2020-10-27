@@ -10,3 +10,6 @@ export function transform(user: User): UserResponse {
     };
 }
 
+export function transformList(users: User[]): UserResponse[] {
+    return users.map(user => transform(user));
+}

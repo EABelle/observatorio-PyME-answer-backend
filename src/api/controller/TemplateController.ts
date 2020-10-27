@@ -15,9 +15,9 @@ export class TemplateController {
         try {
             const templates: Template[] = await TemplateService.getTemplates();
             const templatesResponse: TemplateResponse[] = transformListToResponse(templates);
-            res.json(templatesResponse);
+          return res.json(templatesResponse);
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
     public static async getTemplate(req: Request, res: Response, next: NextFunction) {
@@ -29,9 +29,9 @@ export class TemplateController {
         try {
             const template: Template = await TemplateService.getTemplate(id);
             const response: TemplateResponse = transformToResponse(template);
-            res.json(response);
+          return res.json(response);
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
 
@@ -42,9 +42,9 @@ export class TemplateController {
         }
         try {
             const externalTemplateIds: String[] = await TemplateService.getExternalTemplateIds();
-            res.json(externalTemplateIds);
+          return res.json(externalTemplateIds);
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
     public static async createTemplate(req: Request, res: Response, next: NextFunction) {
@@ -56,9 +56,9 @@ export class TemplateController {
         try {
             const template: Template = await TemplateService.createTemplate(transformFromPayload(templateRequest));
             const templateResponse: TemplateResponse = transformToResponse(template);
-            res.json(templateResponse);
+            return res.json(templateResponse);
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
 
@@ -71,12 +71,11 @@ export class TemplateController {
         try {
             const deleteCount: number = await TemplateService.deleteTemplate(id);
             if (!deleteCount) {
-                res.status(404);
-                res.json({message: 'template not found to delete'});
+                return res.status(404).json({message: 'template not found to delete'});
             }
-            res.json({message: `deleted`});
+          return res.json({message: `deleted`});
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
 }

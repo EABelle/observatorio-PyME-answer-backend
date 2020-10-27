@@ -16,9 +16,9 @@ export class PollController {
         try {
             const poll: Poll = await PollService.getPoll(id);
             const response: PollResponse = transform(poll);
-            res.json(response);
+          return res.json(response);
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
 
@@ -31,9 +31,9 @@ export class PollController {
         try {
             const poll: Poll = await PollService.createPoll(pollRequest);
             const pollResponse: PollResponse = transform(poll);
-            res.json(pollResponse);
+          return res.json(pollResponse);
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
 
@@ -52,7 +52,7 @@ export class PollController {
             const pollResponse: PollResponse = transform(poll);
             return res.json(pollResponse);
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
 
@@ -66,11 +66,11 @@ export class PollController {
             const deleteCount: number = await PollService.deletePoll(id);
             if (!deleteCount) {
                 res.status(404);
-                res.json({message: 'poll not found to delete'});
+              return res.json({message: 'poll not found to delete'});
             }
-            res.json({message: `deleted`});
+          return res.json({message: `deleted`});
         } catch (e) {
-            next(new Error(e.message));
+          return next(new Error(e.message));
         }
     }
 }

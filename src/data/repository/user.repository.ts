@@ -13,4 +13,8 @@ export class UserRepository {
         const user = await UserModel.findOne({email});
         return user.toObject();
     }
+
+    static getAll(): Promise<User[]> {
+        return UserModel.find({});
+    }
 }

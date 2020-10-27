@@ -5,10 +5,12 @@ import {TemplateController} from '../controller/TemplateController';
 import {param, body} from 'express-validator';
 import authMiddleware from '../../core/middlewares/auth';
 import permissions from './permissions';
+import {RoleController} from '../controller/RoleController';
 
 const validations = {
     user: {
-        post: [body('name').exists()]
+        post: [body('name').exists()],
+        getMany: []
     },
     poll: {
         get: [param('id').exists()],
@@ -19,11 +21,19 @@ const validations = {
     template: {
         get: [],
         delete: [param('id').exists()]
-    }
+    },
 };
 
 export const userRouter: Router = Router()
+    .get('/', validations.user.getMany, UserController.getUsers)
     .post('/', authMiddleware(permissions.user.CREATE), validations.user.post, UserController.createUser);
+
+export const roleRouter: Router = Router()
+    .get('/:id', RoleController.getRole)
+    .get('/', RoleController.getRoles)
+    .post('/', RoleController.createRole)
+    .put('/:id', RoleController.updateRole)
+    .delete('/:id', RoleController.deleteRole);
 
 export const pollRouter: Router = Router()
     .get('/:id', authMiddleware(permissions.poll.READ), validations.poll.get, PollController.getPoll)

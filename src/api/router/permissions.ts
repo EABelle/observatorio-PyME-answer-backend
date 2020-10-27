@@ -18,10 +18,7 @@ const permissions = {
         DELETE: 'DELETE_TEMPLATE',
     },
     role: {
-        CREATE: 'CREATE_ROLE',
-        READ: 'READ_ROLE',
-        UPDATE: 'UPDATE_ROLE',
-        DELETE: 'DELETE_ROLE',
+        ALL: 'ROLES'
     }
 };
 

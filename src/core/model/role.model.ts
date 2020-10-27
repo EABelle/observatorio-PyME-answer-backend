@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const roleSchema = {
+    name: String,
     permissions: [String]
 };
 

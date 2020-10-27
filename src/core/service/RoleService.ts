@@ -3,8 +3,25 @@ import {Role} from '../domain/Role';
 import {RolePayload} from '../../api/contract';
 
 export class RoleService {
+
+    static getRoles(): Promise<Role[]> {
+        return RoleRepository.getAll();
+    }
+
+    static getRole(id: string): Promise<Role> {
+        return RoleRepository.getById(id);
+    }
+
     static async createRole(rolePayload: RolePayload): Promise<Role> {
         return await RoleRepository.create(rolePayload);
+    }
+
+    static async updateRole(id: string, rolePayload: RolePayload): Promise<Role | null> {
+        return await RoleRepository.update(id, rolePayload);
+    }
+
+    static async deleteRole(id: string): Promise<number> {
+        return await RoleRepository.delete(id);
     }
 
     static getPermissionsByName(roleName: string): Promise<string[]> {

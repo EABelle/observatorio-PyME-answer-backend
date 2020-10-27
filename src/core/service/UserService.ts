@@ -20,4 +20,8 @@ export class UserService {
     static getPermissions(user: User): Promise<string[]> {
         return RoleService.getPermissionsByRoles(user.roles);
     }
+
+    static getUsers(): Promise<User[]> {
+        return UserRepository.getAll();
+    }
 }
