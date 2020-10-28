@@ -21,6 +21,27 @@ export class PollController {
         }
     }
 
+    public static async getCompletePolls(req: Request, res: Response, next: NextFunction) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const dateQuery = <String>req.query.date;
+        let date;
+        if (dateQuery) {
+            const [year, month, day] = dateQuery.split('-');
+            date = new Date(Number(year), Number(month) - 1, Number(day));
+        }
+        try {
+            const polls: Poll[] = await PollService.getCompletePolls(date);
+            const pollsResponse: PollResponse[] = transformList(polls);
+            return res.json(pollsResponse);
+        } catch (e) {
+            return next(new Error(e.message));
+        }
+    }
+
     public static async getPoll(req: Request, res: Response, next: NextFunction) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

@@ -8,6 +8,10 @@ export class PollService {
         return PollRepository.getAll();
     }
 
+    static getCompletePolls(date?: Date): Promise<Poll[]> {
+        return PollRepository.getCompletePolls(date);
+    }
+
     static getPoll(id: string): Promise<Poll> {
         return PollRepository.getById(id);
     }

@@ -45,7 +45,7 @@ export interface Poll {
     name: string;
     description: string;
     status: Status;
-    created: string;
-    modified: string;
+    created: Date;
+    modified: Date;
     sections: Section[];
 }

@@ -39,8 +39,7 @@ export const templateRouter: Router = Router()
     .delete('/:id', TemplateController.deleteTemplate);
 
 export const externalRouter: Router = Router()
-    .get('/', PollController.getPolls)
-    .get('/:id', validations.poll.get, PollController.getPoll);
+    .get('/', PollController.getCompletePolls);
 
 export const loginRouter: Router = Router()
     .post('/', validations.login, LoginController.login);

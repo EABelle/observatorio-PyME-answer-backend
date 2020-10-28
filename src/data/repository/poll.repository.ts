@@ -1,5 +1,5 @@
 import {PollModel} from '../../core/model/poll.model';
-import {Poll} from '../../core/domain/Poll';
+import {Poll, Status} from '../../core/domain/Poll';
 import {PollPayload} from '../../api/contract';
 
 export class PollRepository {
@@ -9,8 +9,30 @@ export class PollRepository {
         return polls ? polls.map((p: { toObject: () => any; }) => p.toObject()) : [];
     }
 
+    static async getCompletePolls(date?: Date): Promise<Poll[]> {
+        const filter: any = { status: Status.COMPLETE };
+        if (date) {
+            const dateFrom = date;
+            const dateTo = new Date();
+            dateTo.setDate(dateFrom.getDate() + 1);
+
+            filter.modified = {
+                $gte: dateFrom,
+                $lt: dateTo,
+            };
+        }
+        const polls = await PollModel.find(filter);
+        return polls ? polls.map((p: { toObject: () => any; }) => p.toObject()) : [];
+    }
+
     static async create(pollPayload: PollPayload): Promise<Poll> {
-        const pollModel = new PollModel(pollPayload);
+        const date = new Date(Date.now());
+        const preModel = {
+            ...pollPayload,
+            created: date,
+            modified: date,
+        };
+        const pollModel = new PollModel(preModel);
         const poll = await pollModel.save();
         return poll.toObject();
     }

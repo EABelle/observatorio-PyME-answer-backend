@@ -22,6 +22,7 @@ const pollSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Template',
     },
+    modified: { type: Date },
     ...pollPreSchema,
 });
 

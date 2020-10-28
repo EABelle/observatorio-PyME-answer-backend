@@ -43,8 +43,7 @@ const sectionSchema = new mongoose.Schema({
 export const templatePreSchema = {
     name: String,
     description: String,
-    created: String,
-    modified: String,
+    created: { type: Date },
     sections: [sectionSchema],
     externalId: String,
 };

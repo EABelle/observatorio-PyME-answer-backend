@@ -36,6 +36,6 @@ export interface Template {
     modified?: string;
     name: string;
     description: string;
-    created: string;
+    created: Date;
     sections: Section[];
 }
