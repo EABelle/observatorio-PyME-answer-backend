@@ -5,8 +5,8 @@ export function transform(poll: Poll): PollResponse {
     const { _id, company, created, modified, ...pollDetails } = poll;
     const response: PollResponse = {
         ...pollDetails,
-        created: (new Date(Date.parse(created))).toISOString(),
-        modified:  (new Date(Date.parse(modified))).toISOString(),
+        created: (new Date(created)).toISOString(),
+        modified:  (new Date(modified)).toISOString(),
         id: poll._id
     };
     if (company) {
