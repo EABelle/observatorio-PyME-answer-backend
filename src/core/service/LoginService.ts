@@ -20,7 +20,7 @@ export class LoginService {
         const passwordIsValid = bcrypt.compareSync(password, user.password);
         if (!passwordIsValid) { throw Error('Invalid username/password'); }
 
-        const permissions = UserService.getPermissions(user);
+        const permissions = await UserService.getPermissions(user);
 
         const userToken = jwt.sign({
             id: user._id,

@@ -13,7 +13,8 @@ export default class CacheService {
 
     static async getUserFromCacheBySecret(token: string): Promise<User> {
         const key = await generateGetUserKey(token);
-        return await JSON.parse(getAsync(key));
+        const user = await getAsync(key);
+        return JSON.parse(user);
     }
 
     static async getUserFromCacheById(userId: string) {
@@ -27,7 +28,7 @@ export default class CacheService {
     }
 
     static async saveUserToCache(token: string, user: User, ttl = ONE_HOUR) {
-        const userKey = generateSetUserKey(token, user._id);
+        const userKey = await generateSetUserKey(token, user._id);
         await setAsync(userKey, JSON.stringify({userToken: token, ...user}));
         await expireAsync(userKey, ttl);
     }
