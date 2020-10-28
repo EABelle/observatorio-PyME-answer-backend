@@ -1,0 +1,11 @@
+[
+  {
+    "_id": {"$oid": "5f996ad5f5971141d4d1958d"},
+    "__v": 0,
+    "avatar": null,
+    "email": "esteban@test.com",
+    "name": "Esteban Bellegarde",
+    "password": "$2a$08$.asOwy6N1LrpjWnVSv5vzuCEWS/prnplAVrDn3VJsO6Ea9.74zW/q",
+    "roles": ["ADMIN"]
+  }
+]
