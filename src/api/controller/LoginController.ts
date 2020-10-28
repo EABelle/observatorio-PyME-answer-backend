@@ -6,12 +6,13 @@ function login(req: Request, res: Response) {
     if (!userName || !password) {
         return res.sendStatus(400);
     }
-    LoginService
+    return LoginService
         .login(userName, password)
         .then(userToken => {
             return res.send(userToken);
         })
         .catch(error => {
+            console.log(error.message);
             if (!error.response) {
                 return res.status(500);
             }

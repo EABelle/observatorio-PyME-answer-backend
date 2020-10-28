@@ -9,6 +9,7 @@ import authMiddleware from './core/middlewares/auth';
 import permissions from './api/router/permissions';
 
 require('dotenv').config();
+require('newrelic');
 require('./rabbitmq');
 
 const express = require('express');
