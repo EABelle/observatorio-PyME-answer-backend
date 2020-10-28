@@ -1,3 +1,4 @@
+require('newrelic');
 import {Application} from 'express';
 import {pollRouter, userRouter, externalRouter, templateRouter, roleRouter, loginRouter} from './api/router';
 import {apiEndpoints, externalApiEndpoints} from './api/config';
