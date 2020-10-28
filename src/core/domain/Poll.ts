@@ -39,7 +39,7 @@ export interface Section {
 export interface Poll {
     _id: string;
     company: {
-        id: string;
+        _id: string;
         name: string;
     };
     name: string;

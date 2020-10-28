@@ -5,7 +5,13 @@ const userSchema = {
     avatar: String,
     email: {type: String, required: true},
     password: {type: String, required: true},
-    roles: [String]
+    roles: [String],
+    company: {
+        _id: {
+            type: mongoose.Schema.Types.ObjectId,
+        },
+        name: String,
+    }
 };
 
 export const UserModel = mongoose.model('User', new mongoose.Schema(userSchema));

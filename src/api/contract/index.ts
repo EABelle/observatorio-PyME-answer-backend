@@ -4,6 +4,10 @@ export interface UserPayload {
     avatar: string;
     password: string;
     roles: string[];
+    company?: {
+        id: string;
+        name: string;
+    };
 }
 
 export interface UserResponse {
@@ -11,6 +15,10 @@ export interface UserResponse {
     avatar: string;
     name: string;
     email: string;
+    company?: {
+        id: string;
+        name: string;
+    };
 }
 
 

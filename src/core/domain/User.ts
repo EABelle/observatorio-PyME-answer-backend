@@ -5,4 +5,8 @@ export interface User {
     readonly avatar: string;
     readonly password: string;
     readonly roles: string[];
+    readonly company: {
+        _id: string;
+        name: string;
+    };
 }

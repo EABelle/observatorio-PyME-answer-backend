@@ -7,9 +7,8 @@ const {externalId: _templateExternalId, ...pollPreSchema} = templatePreSchema;
 
 const pollSchema = new mongoose.Schema({
     company: {
-        id: {
+        _id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Company',
         },
         name: String,
     },

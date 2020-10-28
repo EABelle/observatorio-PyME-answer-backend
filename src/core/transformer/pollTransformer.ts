@@ -10,7 +10,10 @@ export function transform(poll: Poll): PollResponse {
         id: poll._id
     };
     if (company) {
-        response.company = company;
+        response.company = {
+            id: company._id,
+            name: company.name,
+        };
     }
     return response;
 }
