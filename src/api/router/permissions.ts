@@ -12,10 +12,7 @@ const permissions = {
         DELETE: 'DELETE_POLL',
     },
     template: {
-        CREATE: 'CREATE_TEMPLATE',
-        READ: 'READ_TEMPLATE',
-        UPDATE: 'UPDATE_TEMPLATE',
-        DELETE: 'DELETE_TEMPLATE',
+        ALL: 'TEMPLATES'
     },
     role: {
         ALL: 'ROLES'

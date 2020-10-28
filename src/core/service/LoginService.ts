@@ -17,7 +17,7 @@ export class LoginService {
             return userFromCache.userToken;
         }
 
-        const passwordIsValid = bcrypt.compareSync(user.password, password);
+        const passwordIsValid = bcrypt.compareSync(password, user.password);
         if (!passwordIsValid) { throw Error('Invalid username/password'); }
 
         const permissions = UserService.getPermissions(user);

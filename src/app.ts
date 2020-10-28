@@ -1,9 +1,11 @@
 import {Application} from 'express';
-import {pollRouter, userRouter, externalRouter, templateRouter, roleRouter} from './api/router';
+import {pollRouter, userRouter, externalRouter, templateRouter, roleRouter, loginRouter} from './api/router';
 import {apiEndpoints, externalApiEndpoints} from './api/config';
 import {accessControl} from './core/middlewares/access-control';
 import {fourOFourMiddleware} from './core/middlewares/404-middleware';
 import {authorization} from './core/middlewares/authorization';
+import authMiddleware from './core/middlewares/auth';
+import permissions from './api/router/permissions';
 
 require('dotenv').config();
 require('./rabbitmq');
@@ -19,10 +21,11 @@ app
     .use(bodyParser.json())
     .use(accessControl)
     .use(externalApiEndpoints.polls, authorization, externalRouter)
+    .use(apiEndpoints.templates, authMiddleware(permissions.template.ALL), templateRouter)
+    .use(apiEndpoints.roles, authMiddleware(permissions.role.ALL), roleRouter)
     .use(apiEndpoints.polls, pollRouter)
-    .use(apiEndpoints.templates, templateRouter)
     .use(apiEndpoints.users, userRouter)
-    .use(apiEndpoints.roles, roleRouter)
+    .use(apiEndpoints.login, loginRouter)
     .use(fourOFourMiddleware);
 
 export default app;

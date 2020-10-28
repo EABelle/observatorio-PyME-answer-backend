@@ -6,10 +6,13 @@ import {UserService} from '../service/UserService';
 const authMiddleware = (permission?: string) => async (req: CustomRequest, res: Response, next: NextFunction) => {
     try {
         const userToken = <string>req.headers.authorization;
+
+        console.log(userToken);
         if (!userToken) {
             return res.sendStatus(401);
         }
         const user = await CacheService.getUserFromCacheBySecret(userToken);
+        console.log(userToken);
         if (!user) {
             return res.sendStatus(401);
         }
