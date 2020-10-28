@@ -4,8 +4,9 @@ import {PollPayload} from '../../api/contract';
 
 export class PollRepository {
 
-    static getAll(): Promise<Poll[]> {
-        return PollModel.find({});
+    static async getAll(): Promise<Poll[]> {
+        const polls = await PollModel.find({});
+        return polls ? polls.map((p: { toObject: () => any; }) => p.toObject()) : [];
     }
 
     static async create(pollPayload: PollPayload): Promise<Poll> {
