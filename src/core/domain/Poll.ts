@@ -38,6 +38,7 @@ export interface Section {
 
 export interface Poll {
     _id: string;
+    userId: string;
     company: {
         _id: string;
         name: string;

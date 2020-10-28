@@ -3,8 +3,7 @@ import {UserService} from '../../core/service/UserService';
 import {User} from '../../core/domain/User';
 import {UserPayload, UserResponse} from '../contract';
 import {validationResult} from 'express-validator';
-import {transform} from '../../core/transformer/userTransformer';
-import {transformList} from '../../core/transformer/userTransformer';
+import {transformUser, transformList} from '../../core/transformer/userTransformer';
 
 export class UserController {
 
@@ -33,7 +32,7 @@ export class UserController {
             if (!user) {
                 return res.status(404).json({message: 'User not found'});
             }
-            const response: UserResponse = transform(user);
+            const response: UserResponse = transformUser(user);
             return res.json(response);
         } catch (e) {
             return next(new Error(e.message));
@@ -49,7 +48,7 @@ export class UserController {
             }
             const userRequest: UserPayload = req.body;
             const user: User = await UserService.createUser(userRequest);
-            const userResponse: UserResponse = transform(user);
+            const userResponse: UserResponse = transformUser(user);
           return res.json(userResponse);
         } catch (e) {
           return next(new Error(e.message));
@@ -69,7 +68,7 @@ export class UserController {
             if (!user) {
                 return res.status(404).json({message: 'User not found'});
             }
-            const userResponse: UserResponse = transform(user);
+            const userResponse: UserResponse = transformUser(user);
             return res.json(userResponse);
         } catch (e) {
             return next(new Error(e.message));

@@ -1,7 +1,7 @@
 import {UserResponse} from '../../api/contract';
 import {User} from '../domain/User';
 
-export function transform(user: User): UserResponse {
+export function transformUser(user: User): UserResponse {
     const response: UserResponse = {
         id: user._id,
         name: user.name,
@@ -18,5 +18,5 @@ export function transform(user: User): UserResponse {
 }
 
 export function transformList(users: User[]): UserResponse[] {
-    return users.map(user => transform(user));
+    return users.map(user => transformUser(user));
 }

@@ -14,7 +14,7 @@ export class PollController {
         }
         try {
             const polls: Poll[] = await PollService.getPolls();
-            const pollsResponse: PollResponse[] = transformList(polls);
+            const pollsResponse: PollResponse[] = await transformList(polls);
             return res.json(pollsResponse);
         } catch (e) {
             return next(new Error(e.message));
@@ -35,7 +35,7 @@ export class PollController {
         }
         try {
             const polls: Poll[] = await PollService.getCompletePolls(date);
-            const pollsResponse: PollResponse[] = transformList(polls);
+            const pollsResponse: PollResponse[] = await transformList(polls);
             return res.json(pollsResponse);
         } catch (e) {
             return next(new Error(e.message));
@@ -50,7 +50,7 @@ export class PollController {
         const id: string = req.params.id;
         try {
             const poll: Poll = await PollService.getPoll(id);
-            const response: PollResponse = transform(poll);
+            const response: PollResponse = await transform(poll);
           return res.json(response);
         } catch (e) {
           return next(new Error(e.message));
@@ -65,7 +65,7 @@ export class PollController {
         const pollRequest: PollPayload = req.body;
         try {
             const poll: Poll = await PollService.createPoll(pollRequest);
-            const pollResponse: PollResponse = transform(poll);
+            const pollResponse: PollResponse = await transform(poll);
           return res.json(pollResponse);
         } catch (e) {
           return next(new Error(e.message));
@@ -84,7 +84,7 @@ export class PollController {
             if (!poll) {
                 return res.status(404).json({message: 'Poll not found'});
             }
-            const pollResponse: PollResponse = transform(poll);
+            const pollResponse: PollResponse = await transform(poll);
             return res.json(pollResponse);
         } catch (e) {
           return next(new Error(e.message));

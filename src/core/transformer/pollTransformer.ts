@@ -1,7 +1,9 @@
 import {Poll} from '../domain/Poll';
 import {PollResponse} from '../../api/contract';
+import {transformUser} from './userTransformer';
+import {UserService} from '../service/UserService';
 
-export function transform(poll: Poll): PollResponse {
+export async function transform(poll: Poll): Promise<PollResponse> {
     const { _id, company, created, modified, ...pollDetails } = poll;
     const response: PollResponse = {
         ...pollDetails,
@@ -15,9 +17,13 @@ export function transform(poll: Poll): PollResponse {
             name: company.name,
         };
     }
+    if (poll.userId) {
+        response.user = transformUser(await UserService.getUser(poll.userId));
+    }
     return response;
 }
 
-export function transformList(polls: Poll[]): PollResponse[] {
-    return polls.map(poll => transform(poll));
+export function transformList(polls: Poll[]): Promise<PollResponse[]> {
+    const promises = polls.map(poll => transform(poll));
+    return Promise.all(promises);
 }

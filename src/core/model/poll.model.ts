@@ -22,6 +22,10 @@ const pollSchema = new mongoose.Schema({
         ref: 'Template',
     },
     modified: { type: Date },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
     ...pollPreSchema,
 });
 

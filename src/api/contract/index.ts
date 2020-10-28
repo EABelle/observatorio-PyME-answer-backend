@@ -70,6 +70,7 @@ export interface PollPayload {
     description: string;
     status: Status;
     sections: Section[];
+    userId: string;
 }
 
 export interface TemplatePayload {
@@ -83,6 +84,7 @@ export interface TemplatePayload {
 
 export interface PollResponse {
     id: string;
+    user?: UserResponse;
     company?: {
         id: string;
         name: string;
