@@ -1,4 +1,3 @@
-require('newrelic');
 import {Application} from 'express';
 import {pollRouter, userRouter, externalRouter, templateRouter, roleRouter, loginRouter} from './api/router';
 import {apiEndpoints, externalApiEndpoints} from './api/config';
@@ -15,6 +14,9 @@ require('./rabbitmq');
 const express = require('express');
 const bodyParser = require('body-parser');
 const healthcheck = require('express-healthcheck')();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
+
 const app: Application = express();
 app
     .disable('x-powered-by')
@@ -28,6 +30,7 @@ app
     .use(apiEndpoints.polls, pollRouter)
     .use(apiEndpoints.users, userRouter)
     .use(apiEndpoints.login, loginRouter)
+    .use(apiEndpoints.docs, swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     .use(fourOFourMiddleware);
 
 export default app;

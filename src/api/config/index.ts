@@ -3,7 +3,8 @@ export const apiEndpoints = {
     templates: '/templates',
     users: '/users',
     roles: '/roles',
-    login: '/login'
+    login: '/login',
+    docs: '/api-docs',
 };
 
 export const externalApiEndpoints = {
