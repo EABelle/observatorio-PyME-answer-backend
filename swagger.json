@@ -827,9 +827,7 @@
       "required": [
         "id",
         "name",
-        "email",
-        "password",
-        "roles"
+        "email"
       ],
       "properties": {
         "id": {
@@ -843,15 +841,6 @@
         },
         "email": {
           "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "roles": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "company": {
           "$ref": "#/definitions/Company"
