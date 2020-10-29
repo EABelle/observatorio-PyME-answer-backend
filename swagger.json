@@ -9,16 +9,36 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "https://observatorio-pyme-answer-back.herokuapp.com",
+  "host": "observatorio-pyme-answer-back.herokuapp.com",
   "basePath": "/",
   "tags": [
     {
+      "name": "Login",
+      "description": "API for login"
+    },
+    {
       "name": "Users",
       "description": "API for users in the system"
+    },
+    {
+      "name": "Roles",
+      "description": "API for roles in the system"
+    },
+    {
+      "name": "Polls",
+      "description": "API for polls in the system"
+    },
+    {
+      "name": "Templates",
+      "description": "API for templates in the system"
+    },
+    {
+      "name": "ExternalAPI",
+      "description": "API for external systems"
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
@@ -27,35 +47,83 @@
     "application/json"
   ],
   "paths": {
-    "/users": {
-      "get": {
+    "/login": {
+      "post": {
         "tags": [
-          "Users"
+          "Login"
         ],
-        "summary": "Get all users in system",
+        "description": "Create new poll in the system",
+        "parameters": [
+          {
+            "name": "loginData",
+            "in": "body",
+            "description": "The data to login",
+            "schema": {
+              "$ref": "#/definitions/LoginPayload"
+            }
+          }
+        ],
+        "produces": [
+          "text/html"
+        ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Returns the user token",
             "schema": {
-              "$ref": "#/definitions/Users"
+              "type": "string",
+              "format": "jwt"
             }
           }
         }
       }
     },
-    "/addUser": {
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get all users in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UsersResponse"
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
           "Users"
         ],
-        "description": "Create new user in system",
+        "description": "Create new user in the system",
         "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
           {
             "name": "user",
             "in": "body",
             "description": "User that we want to create",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/UserPayload"
             }
           }
         ],
@@ -66,14 +134,23 @@
           "200": {
             "description": "New user is created",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/UserResponse"
             }
           }
         }
       }
     },
-    "/user/{id}": {
+    "/users/{id}": {
       "parameters": [
+        {
+          "in": "header",
+          "name": "Authorization",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "required": true
+        },
         {
           "name": "id",
           "in": "path",
@@ -82,6 +159,31 @@
           "type": "integer"
         }
       ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get a specific user in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          }
+        }
+      },
       "put": {
         "summary": "Update user with give ID",
         "tags": [
@@ -89,11 +191,20 @@
         ],
         "parameters": [
           {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
+          {
             "name": "user",
             "in": "body",
             "description": "User with new values of properties",
             "schema": {
-              "$ref": "#/definitions/updateUser"
+              "$ref": "#/definitions/UserPayload"
             }
           }
         ],
@@ -101,7 +212,7 @@
           "200": {
             "description": "User is updated",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/UserResponse"
             }
           }
         }
@@ -111,11 +222,547 @@
         "tags": [
           "Users"
         ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "User is deleted",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/UserResponse"
+            }
+          }
+        }
+      }
+    },
+    "/roles": {
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get all roles in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RolesResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "Create new role in the system",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
+          {
+            "name": "role",
+            "in": "body",
+            "description": "Role that we want to create",
+            "schema": {
+              "$ref": "#/definitions/RolePayload"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New role is created",
+            "schema": {
+              "$ref": "#/definitions/RoleResponse"
+            }
+          }
+        }
+      }
+    },
+    "/roles/{id}": {
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Authorization",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "required": true
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of role that we want to find",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get a specific role in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RoleResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update role with give ID",
+        "tags": [
+          "Roles"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
+          {
+            "name": "role",
+            "in": "body",
+            "description": "Role with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/RolePayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role is updated",
+            "schema": {
+              "$ref": "#/definitions/RoleResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete role with given ID",
+        "tags": [
+          "Roles"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role is deleted",
+            "schema": {
+              "$ref": "#/definitions/RoleResponse"
+            }
+          }
+        }
+      }
+    },
+    "/polls": {
+      "get": {
+        "tags": [
+          "Polls"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get all polls in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PollsResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Polls"
+        ],
+        "description": "Create new poll in the system",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
+          {
+            "name": "poll",
+            "in": "body",
+            "description": "Poll that we want to create",
+            "schema": {
+              "$ref": "#/definitions/PollPayload"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New poll is created",
+            "schema": {
+              "$ref": "#/definitions/PollResponse"
+            }
+          }
+        }
+      }
+    },
+    "/polls/{id}": {
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Authorization",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "required": true
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of poll that we want to find",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Polls"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get a specific poll in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PollResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update poll with give ID",
+        "tags": [
+          "Polls"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
+          {
+            "name": "poll",
+            "in": "body",
+            "description": "Poll with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/PollPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Poll is updated",
+            "schema": {
+              "$ref": "#/definitions/PollResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete poll with given ID",
+        "tags": [
+          "Polls"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Poll is deleted",
+            "schema": {
+              "$ref": "#/definitions/PollResponse"
+            }
+          }
+        }
+      }
+    },
+    "/templates": {
+      "get": {
+        "tags": [
+          "Templates"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get all templates in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TemplatesResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Templates"
+        ],
+        "description": "Create new template in the system",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
+          {
+            "name": "template",
+            "in": "body",
+            "description": "Template that we want to create",
+            "schema": {
+              "$ref": "#/definitions/TemplatePayload"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New template is created",
+            "schema": {
+              "$ref": "#/definitions/TemplateResponse"
+            }
+          }
+        }
+      }
+    },
+    "/templates/{id}": {
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Authorization",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "required": true
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of template that we want to find",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Templates"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get a specific template in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TemplateResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update template with give ID",
+        "tags": [
+          "Templates"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
+          {
+            "name": "template",
+            "in": "body",
+            "description": "Template with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/TemplatePayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template is updated",
+            "schema": {
+              "$ref": "#/definitions/TemplateResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete template with given ID",
+        "tags": [
+          "Templates"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template is deleted",
+            "schema": {
+              "$ref": "#/definitions/TemplateResponse"
+            }
+          }
+        }
+      }
+    },
+    "/external-api/polls": {
+      "get": {
+        "tags": [
+          "Polls",
+          "ExternalAPI"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Get all polls in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PollsResponse"
             }
           }
         }
@@ -123,38 +770,102 @@
     }
   },
   "definitions": {
-    "User": {
+    "LoginPayload": {
       "required": [
-        "name",
-        "_id",
-        "companies"
+        "userName",
+        "password"
       ],
       "properties": {
-        "_id": {
-          "type": "integer",
-          "uniqueItems": true
+        "userName": {
+          "type": "string"
         },
-        "isPublic": {
-          "type": "boolean"
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserPayload": {
+      "required": [
+        "name",
+        "email",
+        "password",
+        "roles"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        }
+      }
+    },
+    "UserResponse": {
+      "required": [
+        "id",
+        "name",
+        "email",
+        "password",
+        "roles"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
         },
         "name": {
           "type": "string"
         },
-        "books": {
+        "avatar": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "roles": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              }
-            }
+            "type": "string"
           }
         },
-        "companies": {
+        "company": {
+          "$ref": "#/definitions/Company"
+        }
+      }
+    },
+    "UsersResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UserResponse"
+      }
+    },
+    "RolePayload": {
+      "required": [
+        "name",
+        "permissions"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "permissions": {
           "type": "array",
           "items": {
             "type": "string"
@@ -162,42 +873,291 @@
         }
       }
     },
-    "Users": {
-      "type": "array",
-      "$ref": "#/definitions/User"
-    },
-    "updateUser": {
+    "RoleResponse": {
       "required": [
         "name",
-        "companies"
+        "permissions"
       ],
       "properties": {
-        "isPublic": {
-          "type": "boolean"
-        },
         "name": {
           "type": "string"
         },
-        "books": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              }
-            }
-          }
-        },
-        "companies": {
+        "permissions": {
           "type": "array",
           "items": {
             "type": "string"
           }
         }
+      }
+    },
+    "RolesResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RoleResponse"
+      }
+    },
+    "PollPayload": {
+      "required": [
+        "id",
+        "userId",
+        "status",
+        "name",
+        "description",
+        "sections",
+        "created",
+        "modified"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/Status"
+        },
+        "name": {
+          "type": "string"
+        },
+        "modified": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Section"
+          }
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        }
+      }
+    },
+    "PollResponse": {
+      "required": [
+        "id",
+        "userId",
+        "status",
+        "name",
+        "description",
+        "sections",
+        "created",
+        "modified",
+        "user"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/Status"
+        },
+        "name": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "modified": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Section"
+          }
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        },
+        "user": {
+          "$ref": "#/definitions/UserResponse"
+        }
+      }
+    },
+    "PollsResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PollResponse"
+      }
+    },
+    "TemplatePayload": {
+      "required": [
+        "externalId",
+        "name",
+        "description",
+        "sections"
+      ],
+      "properties": {
+        "externalId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Section"
+          }
+        }
+      }
+    },
+    "TemplateResponse": {
+      "required": [
+        "id",
+        "externalId",
+        "name",
+        "description",
+        "sections",
+        "created"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "externalId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Section"
+          }
+        }
+      }
+    },
+    "TemplatesResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TemplateResponse"
+      }
+    },
+    "Company": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Section": {
+      "required": [
+        "title",
+        "questions"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Question"
+          }
+        }
+      }
+    },
+    "Question": {
+      "type": "object",
+      "required": [
+        "type",
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/QuestionType"
+        },
+        "value": {
+          "type": [
+            "string",
+            "boolean",
+            "number"
+          ]
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "multiline": {
+          "type": "boolean"
+        },
+        "restrictions": {
+          "$ref": "#/definitions/Restrictions"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Question"
+          }
+        }
+      }
+    },
+    "Status": {
+      "type": "string",
+      "enum": [
+        "COMPLETE",
+        "IN_PROGRESS",
+        "NOT_STARTED"
+      ]
+    },
+    "QuestionType": {
+      "type": "string",
+      "enum": [
+        "TEXT",
+        "NUMBER",
+        "SELECT",
+        "CHOICE",
+        "FILE",
+        "GROUPED"
+      ]
+    },
+    "Restrictions": {
+      "min": {
+        "type": "number"
+      },
+      "max": {
+        "type": "number"
       }
     }
   }
