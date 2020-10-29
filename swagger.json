@@ -755,6 +755,14 @@
               "type": "string"
             },
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
           }
         ],
         "summary": "Get all polls in the system",
@@ -1104,11 +1112,14 @@
           "$ref": "#/definitions/QuestionType"
         },
         "value": {
-          "type": [
-            "string",
-            "boolean",
-            "number"
-          ]
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              "string",
+              "boolean",
+              "number"
+            ]
+          }
         },
         "mandatory": {
           "type": "boolean"
