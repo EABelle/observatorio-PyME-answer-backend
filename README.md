@@ -1,4 +1,4 @@
-# graphql-and-rest-express-server
+# Observatorio PyME Answer Backend
 
 ## Requirements
 
@@ -73,72 +73,6 @@ To run the server locally in develoment mode (you need to provide the NODE_ENV, 
 $ npm run dev
 ```
 
-## Using the api
+## API Docs
 
-#### Authentication
-
-It's necessary tu set to every request an `x-api-key` header, which value must be the same as the environment variable set to the server in order to authorize the requests.
-Example of header: `x-api-key: 5CD4ED173E1C95FE763B753A297D5` 
-
-#### Endpoints and methods
-
-**A Postman collection is provided in order to show examples of the requests: https://www.getpostman.com/collections/fedfd07ad9655301249e*
-
-The followings are the HTTP methods and endpoints of the API:
-
-- `POST /users`
-
-  Creates a new user
-
-  - body:
-  ```typescript
-    {
-        "name": string,
-        "avatar": string
-    }
-  ```
-  ***name** field is mandatory
-
-- `POST /polls`
-
-  Creates a new poll
-
-  - body:
-  ```typescript
-    {
-        "userId": string,
-        "text": string,
-        "title": string,
-        "tags": string[],
-     }
-  ```
-  ***userId** field is mandatory
-
-- `GET /users?tag=tag1&tag=tag2&...`
-    
-    Receives an array of `tag`'s (as query params: `?tag=tag1&tag=tag2&...`) and returns all polls (from all users) that contains the given tag(s) (1 or more)
-
-    - Query params:
-        - `tag`: it can be multiple, as the server takes them as an array.
-- `PUT /users/:id`
-
-  Updates a poll. The body of the request is the full new poll.
-  
-  - body:
-    ```typescript
-      {
-          "userId": string,
-          "text": string,
-          "title": string,
-          "tags": string[],
-       }
-    ```
-  - params: `/:id`: The id of the poll
-
-- `DELETE /users/:id`
-
-  Deletes a poll. 
-  - params: `/:id`: The id of the poll
-
-#### GraphQL
-The GraphiQL API is exposed at `/graphql`
+[Swagger](https://observatorio-pyme-answer-back.herokuapp.com/api-docs/)
