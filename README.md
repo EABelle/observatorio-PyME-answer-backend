@@ -21,8 +21,14 @@ Also, as you'll need **docker-compose** to run it with a MongoDB container:
 - `EXTERNAL_SERVER_PORT`: The port which binds the application port with the docker ports (`example: 8080`)
 - `DOCKER_SERVER_PORTS`: The **ports** value for the web app section of the `docker-compose.yml`, which matches with EXTERNAL_SERVER_PORT:PORT (i.e.: `8080:8080`) 
 - `MONGODB_URI`: The uri for the app to connect to the database (i.e.: `mongodb://localhost:270127/observatorio-pyme`)
+- `MONGODB_URI_PROD`: The uri for the app to connect to the database (i.e.: `mongodb://localhost:270127/observatorio-pyme`)
+- `MONGODB_PASSWORD_PROD`= The password for the app to connect to the database
+
 - `DOCKER_MONGO_PORTS`: The **ports** value for the mongo section of the `docker-compose.yml`, the value of the right has to match with the port of the URI (i.e.: `270127:27017`)
 - `API_KEY`: The value of the header which has to match to authorize the requests. (i.e. `5CD4ED173E1C95FE763B753A297D5`).
+- `SECRET`: Secret for JWT.
+- `REDIS_BASE_URL`
+- `NEW_RELIC_LICENSE_KEY`
 
 You may use a `.env` named file like the following, at the root of your working tree, to provide the variables to the app:
 
@@ -37,9 +43,16 @@ SERVER_MONGODB_PORT=27017
 EXTERNAL_MONGODB_PORT=27017
 DOCKER_MONGO_PORTS=27017:27017
 
-MONGODB_URI=mongodb://mongo:27017/observatorio-pyme
+MONGODB_URI=mongodb://localhost:27017/observatorio-pyme
+MONGODB_PASSWORD_PROD=string
+MONGODB_URI_PROD=string
+REDIS_BASE_URL=redis
 
-API_KEY=5CD4ED173E1C95FE763B753A297D5
+API_KEY=string
+
+SECRET=string
+
+NEW_RELIC_LICENSE_KEY=string
 ```
 
 **The above configuration exposes the API to `http://localhost:8080/`*
