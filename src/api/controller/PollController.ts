@@ -4,6 +4,9 @@ import {Poll} from '../../core/domain/Poll';
 import {PollService} from '../../core/service/PollService';
 import {validationResult} from 'express-validator';
 import {transform, transformList} from '../../core/transformer/pollTransformer';
+import {CustomRequest} from '../../core/middlewares/utils';
+
+// require('cloudinary').v2; // TODO: Use to upload
 
 export class PollController {
 
@@ -14,6 +17,20 @@ export class PollController {
         }
         try {
             const polls: Poll[] = await PollService.getPolls();
+            const pollsResponse: PollResponse[] = await transformList(polls);
+            return res.json(pollsResponse);
+        } catch (e) {
+            return next(new Error(e.message));
+        }
+    }
+
+    public static async getMyPolls(req: CustomRequest, res: Response, next: NextFunction) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        try {
+            const polls: Poll[] = await PollService.getPolls({userId: req.user._id});
             const pollsResponse: PollResponse[] = await transformList(polls);
             return res.json(pollsResponse);
         } catch (e) {

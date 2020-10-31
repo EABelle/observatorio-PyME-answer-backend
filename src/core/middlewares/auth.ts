@@ -23,7 +23,7 @@ const authMiddleware = (permission?: string) => async (req: CustomRequest, res: 
         }
 
         // @ts-ignore
-        req.user = {user, userToken};
+        req.user = {...user, userToken};
         return next();
     } catch (e) {
         return res.sendStatus(401);

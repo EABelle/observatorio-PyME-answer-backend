@@ -4,7 +4,8 @@ import {transformUser} from './userTransformer';
 import {UserService} from '../service/UserService';
 
 export function transformQuestions(questions: Question[]): any {
-    return questions.map((question: Question) => ({
+    console.log(questions);
+    return questions && questions.map((question: Question) => ({
         type: question.type,
         title: question.title,
         description: question.description,
@@ -26,15 +27,15 @@ export function transformSections(sections: Section[]) {
 }
 
 export async function transform(poll: Poll): Promise<PollResponse> {
-    const { _id, company, created, modified, userId, ...pollDetails } = poll;
+    const { _id, company, created, modified, userId, name, description, sections, status } = poll;
     const response: PollResponse = {
         created: (new Date(created)).toISOString(),
         modified:  (new Date(modified)).toISOString(),
         id: _id,
-        name: pollDetails.name,
-        description: pollDetails.description,
-        status: pollDetails.status,
-        sections: transformSections(pollDetails.sections),
+        name,
+        description,
+        status,
+        sections: transformSections(sections),
     };
     if (company) {
         response.company = {

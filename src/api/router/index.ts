@@ -43,3 +43,15 @@ export const externalRouter: Router = Router()
 
 export const loginRouter: Router = Router()
     .post('/', validations.login, LoginController.login);
+
+export const generalRouter: Router = Router()
+    .get(
+        '/myForms',
+        authMiddleware(permissions.poll.READ),
+        // @ts-ignore
+        PollController.getMyPolls)
+    .get(
+        '/myAccount',
+        authMiddleware(permissions.user.READ),
+        // @ts-ignore
+        UserController.getMyUser);

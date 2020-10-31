@@ -4,6 +4,7 @@ import {User} from '../../core/domain/User';
 import {UserPayload, UserResponse} from '../contract';
 import {validationResult} from 'express-validator';
 import {transformUser, transformList} from '../../core/transformer/userTransformer';
+import {CustomRequest} from '../../core/middlewares/utils';
 
 export class UserController {
 
@@ -39,6 +40,19 @@ export class UserController {
         }
     }
 
+    public static async getMyUser(req: CustomRequest, res: Response, next: NextFunction) {
+        const id: string = req.user._id;
+        try {
+            const user: User = await UserService.getUser(id);
+            if (!user) {
+                return res.status(404).json({message: 'User not found'});
+            }
+            const response: UserResponse = transformUser(user);
+            return res.json(response);
+        } catch (e) {
+            return next(new Error(e.message));
+        }
+    }
 
     public static async createUser(req: Request, res: Response, next: NextFunction) {
         try {

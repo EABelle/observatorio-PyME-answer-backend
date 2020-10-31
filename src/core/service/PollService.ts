@@ -4,7 +4,10 @@ import {Poll} from '../domain/Poll';
 
 export class PollService {
 
-    static getPolls(): Promise<Poll[]> {
+    static getPolls(filter?: any): Promise<Poll[]> {
+        if (filter) {
+            return PollRepository.getBy(filter);
+        }
         return PollRepository.getAll();
     }
 

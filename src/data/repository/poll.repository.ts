@@ -58,4 +58,8 @@ export class PollRepository {
         const poll = await PollModel.findOne({_id: id});
         return poll.toObject();
     }
+
+    static getBy(filter: any): Promise<Poll[]> {
+        return PollModel.find(filter);
+    }
 }

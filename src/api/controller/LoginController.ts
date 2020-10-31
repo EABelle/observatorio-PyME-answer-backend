@@ -12,13 +12,12 @@ function login(req: Request, res: Response) {
             return res.send(userToken);
         })
         .catch(error => {
-            console.log(error.message);
-            if (!error.response) {
-                return res.status(500);
+            if (!error.name) {
+                return res.status(500).send({message: 'Ocurrió un error'});
             }
-            const { status, data } = error.response;
-            const { code } = data;
-            return res.status(code === 'USR_INVALID_CREDENTIALS' ? 401 : status).send(data);
+            const { name, message } = error;
+            res.status(401);
+            return res.send({name, message});
         });
 }
 
