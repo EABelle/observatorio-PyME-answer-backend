@@ -4,7 +4,6 @@ import {transformUser} from './userTransformer';
 import {UserService} from '../service/UserService';
 
 export function transformQuestions(questions: Question[]): any {
-    console.log(questions);
     return questions && questions.map((question: Question) => ({
         type: question.type,
         title: question.title,

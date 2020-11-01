@@ -3,7 +3,7 @@ import {RoleService} from '../../core/service/RoleService';
 import {Role} from '../../core/domain/Role';
 import {RolePayload, RoleResponse} from '../contract';
 import {validationResult} from 'express-validator';
-import {transform, transformList} from '../../core/transformer/roleTransformer';
+import {transform, transformRolesList} from '../../core/transformer/roleTransformer';
 
 export class RoleController {
 
@@ -14,7 +14,7 @@ export class RoleController {
         }
         try {
             const roles: Role[] = await RoleService.getRoles();
-            const rolesResponse: RoleResponse[] = transformList(roles);
+            const rolesResponse: RoleResponse[] = transformRolesList(roles);
             return res.json(rolesResponse);
         } catch (e) {
             return next(new Error(e.message));

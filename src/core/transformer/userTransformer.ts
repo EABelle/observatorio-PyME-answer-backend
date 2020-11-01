@@ -6,7 +6,8 @@ export function transformUser(user: User): UserResponse {
         id: user._id,
         name: user.name,
         avatar: user.avatar,
-        email: user.email
+        email: user.email,
+        roles: user.roles
     };
     if (user.company) {
         response.company = {

@@ -1,4 +1,5 @@
 export interface UserPayload {
+    id?: string;
     name: string;
     email: string;
     avatar: string;
@@ -15,6 +16,7 @@ export interface UserResponse {
     avatar: string;
     name: string;
     email: string;
+    roles: string[];
     company?: {
         id: string;
         name: string;
@@ -109,6 +111,7 @@ export interface TemplateResponse {
 
 
 export interface RolePayload {
+    id?: string;
     name: string;
     permissions: string[];
 }

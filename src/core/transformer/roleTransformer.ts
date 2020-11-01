@@ -9,6 +9,6 @@ export function transform(role: Role): RoleResponse {
     };
 }
 
-export function transformList(roles: Role[]): RoleResponse[] {
+export function transformRolesList(roles: Role[]): RoleResponse[] {
     return roles.map(role => transform(role));
 }
