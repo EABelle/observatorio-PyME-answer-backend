@@ -62,17 +62,20 @@ export interface Section {
     questions: Question[];
 }
 
+export interface CompanyPayload {
+    id?: string;
+    name: string;
+}
+
 export interface PollPayload {
-    company?: {
-        id: string;
-        name: string;
-    };
+    company?: CompanyPayload;
     created?: string;
     name: string;
     description: string;
     status: Status;
     sections: Section[];
     userId: string;
+    templateId: string;
 }
 
 export interface TemplatePayload {
@@ -97,6 +100,7 @@ export interface PollResponse {
     created: string;
     modified: string;
     sections: Section[];
+    templateId: string;
 }
 
 export interface TemplateResponse {

@@ -36,6 +36,7 @@ export const templateRouter: Router = Router()
     .get('/external-ids', TemplateController.getExternalTemplateIds)
     .get('/:id', TemplateController.getTemplate)
     .post('/', TemplateController.createTemplate)
+    .post('/poll', PollController.createPollFromTemplate)
     .delete('/:id', TemplateController.deleteTemplate);
 
 export const externalRouter: Router = Router()

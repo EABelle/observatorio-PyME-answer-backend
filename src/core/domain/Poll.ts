@@ -49,4 +49,5 @@ export interface Poll {
     created: Date;
     modified: Date;
     sections: Section[];
+    templateId: string;
 }
