@@ -14,7 +14,7 @@ export class TemplateController {
         }
         try {
             const templates: Template[] = await TemplateService.getTemplates();
-            const templatesResponse: TemplateResponse[] = transformListToResponse(templates);
+            const templatesResponse: TemplateResponse[] = await transformListToResponse(templates);
           return res.json(templatesResponse);
         } catch (e) {
           return next(new Error(e.message));
@@ -28,7 +28,7 @@ export class TemplateController {
         const id: string = req.params.id;
         try {
             const template: Template = await TemplateService.getTemplate(id);
-            const response: TemplateResponse = transformToResponse(template);
+            const response: TemplateResponse = await transformToResponse(template);
           return res.json(response);
         } catch (e) {
           return next(new Error(e.message));
@@ -55,7 +55,7 @@ export class TemplateController {
         const templateRequest: TemplatePayload = req.body;
         try {
             const template: Template = await TemplateService.createTemplate(transformFromPayload(templateRequest));
-            const templateResponse: TemplateResponse = transformToResponse(template);
+            const templateResponse: TemplateResponse = await transformToResponse(template);
             return res.json(templateResponse);
         } catch (e) {
           return next(new Error(e.message));

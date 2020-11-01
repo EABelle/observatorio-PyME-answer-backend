@@ -111,6 +111,7 @@ export interface TemplateResponse {
     description: string;
     created: string;
     sections: Section[];
+    sentCount: number;
 }
 
 

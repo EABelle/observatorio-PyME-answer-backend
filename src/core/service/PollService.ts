@@ -11,6 +11,10 @@ export class PollService {
         return PollRepository.getAll();
     }
 
+    static getPollsCountByTemplateId(templateId: string): Promise<number> {
+        return PollRepository.getCountBy({templateId});
+    }
+
     static getCompletePolls(date?: Date): Promise<Poll[]> {
         return PollRepository.getCompletePolls(date);
     }

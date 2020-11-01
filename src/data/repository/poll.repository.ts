@@ -62,4 +62,8 @@ export class PollRepository {
     static getBy(filter: any): Promise<Poll[]> {
         return PollModel.find(filter);
     }
+
+    static getCountBy(filter: any): Promise<number> {
+        return PollModel.find(filter).count();
+    }
 }
