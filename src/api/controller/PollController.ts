@@ -3,7 +3,7 @@ import {PollPayload, PollResponse, TemplatePayload, UserPayload} from '../contra
 import {Poll} from '../../core/domain/Poll';
 import {PollService} from '../../core/service/PollService';
 import {validationResult} from 'express-validator';
-import {transform, transformList, buildPollPayload} from '../../core/transformer/pollTransformer';
+import {buildPollPayload, transform, transformList} from '../../core/transformer/pollTransformer';
 import {CustomRequest} from '../../core/middlewares/utils';
 
 // require('cloudinary').v2; // TODO: Use to upload
