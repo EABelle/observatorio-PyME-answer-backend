@@ -20,7 +20,11 @@ export const pollRouter: Router = Router()
     .get('/:id', authMiddleware(permissions.poll.READ), validations.poll.get, PollController.getPoll)
     .get('/', authMiddleware(permissions.poll.READ), PollController.getPolls)
     .post('/', authMiddleware(permissions.poll.CREATE), validations.poll.post, PollController.createPoll)
-    .post('/fromTemplate', authMiddleware(permissions.poll.CREATE), validations.poll.post, PollController.createPollFromTemplate)
+    .post('/fromTemplate',
+        authMiddleware(permissions.poll.CREATE),
+        validations.poll.postFromTemplate,
+        PollController.createPollFromTemplate,
+    )
     .put('/:id', authMiddleware(permissions.poll.UPDATE), validations.poll.put, PollController.editPoll)
     .delete('/:id', authMiddleware(permissions.poll.DELETE), validations.poll.delete, PollController.deletePoll);
 

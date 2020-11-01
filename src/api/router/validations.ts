@@ -8,6 +8,7 @@ const validations = {
     poll: {
         get: [param('id').exists()],
         post: [],
+        postFromTemplate: [body('user').exists(), body('template').exists()],
         put: [param('id').exists(), body('userId').exists()],
         delete: [param('id').exists()]
     },
