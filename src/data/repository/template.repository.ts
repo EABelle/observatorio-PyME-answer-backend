@@ -24,8 +24,8 @@ export class TemplateRepository {
         return poll?.toObject();
     }
 
-    static async getAll(): Promise<Template[]> {
-        const poll = await TemplateModel.find({});
-        return poll.toObject();
+    static async getTemplates(query = {}): Promise<Template[]> {
+        const templates = await TemplateModel.find(query);
+        return templates.map((t: any) => t.toObject());
     }
 }

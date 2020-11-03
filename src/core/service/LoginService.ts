@@ -6,28 +6,27 @@ import {User} from '../domain/User';
 
 const ONE_DAY = 86400;
 
-const ERROR_401 = new Error();
-ERROR_401.name = 'USR_INVALID_CREDENTIALS';
-ERROR_401.message = 'Usuario o contraseña incorrectos';
+const USR_INVALID_CREDENTIALS = new Error();
+USR_INVALID_CREDENTIALS.name = 'USR_INVALID_CREDENTIALS';
+USR_INVALID_CREDENTIALS.message = 'Usuario o contraseña incorrectos';
 
 export class LoginService {
 
     static async login(userName: string, password: string) {
 
         const user: User = await UserService.getUserByEmail(userName);
-        if (!user) { throw ERROR_401; }
-        const userFromCache = await CacheService.getUserFromCacheById(user._id);
-        if (userFromCache) {
-            return userFromCache.userToken;
-        }
+        if (!user) { throw USR_INVALID_CREDENTIALS; }
 
-        const passwordIsValid = bcrypt.compareSync(password, user.password);
-        if (!passwordIsValid) { throw ERROR_401; }
+        if (user.confirmed) {
+            const passwordIsValid = bcrypt.compareSync(password, user.password);
+            if (!passwordIsValid) { throw USR_INVALID_CREDENTIALS; }
+        }
 
         const permissions = await UserService.getPermissions(user);
 
         const userToken = jwt.sign({
             id: user._id,
+            confirmed: user.confirmed,
             permissions, // @ts-ignore
         }, process.env.SECRET, {
             expiresIn: ONE_DAY,

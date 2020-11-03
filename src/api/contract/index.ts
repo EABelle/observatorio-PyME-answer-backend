@@ -1,14 +1,15 @@
 export interface UserPayload {
     id?: string;
-    name: string;
-    email: string;
-    avatar: string;
-    password: string;
-    roles: string[];
+    name?: string;
+    email?: string;
+    avatar?: string;
+    password?: string;
+    roles?: string[];
     company?: {
         id: string;
         name: string;
     };
+    confirmed?: boolean;
 }
 
 export interface UserResponse {

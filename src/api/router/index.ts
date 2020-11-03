@@ -14,6 +14,7 @@ export const userRouter: Router = Router()
     .get('/', authMiddleware(permissions.user.READ), UserController.getUsers)
     .post('/', authMiddleware(permissions.user.CREATE), UserController.createUser)
     .put('/:id', authMiddleware(permissions.user.UPDATE), UserController.updateUser)
+    .patch('/:id/confirm', authMiddleware(permissions.user.UPDATE), UserController.confirmUser)
     .delete('/:id', authMiddleware(permissions.user.DELETE), UserController.deleteUser);
 
 export const pollRouter: Router = Router()
@@ -23,7 +24,7 @@ export const pollRouter: Router = Router()
     .post('/fromTemplate',
         authMiddleware(permissions.poll.CREATE),
         validations.poll.postFromTemplate,
-        PollController.createPollFromTemplate,
+        PollController.createPollsFromTemplate,
     )
     .put('/:id', authMiddleware(permissions.poll.UPDATE), validations.poll.put, PollController.editPoll)
     .delete('/:id', authMiddleware(permissions.poll.DELETE), validations.poll.delete, PollController.deletePoll);
@@ -59,4 +60,9 @@ export const generalRouter: Router = Router()
         '/myAccount',
         authMiddleware(permissions.user.READ),
         // @ts-ignore
-        UserController.getMyUser);
+        UserController.getMyUser)
+    .post(
+        '/inviteUser',
+        authMiddleware(permissions.user.READ),
+        // @ts-ignore
+        UserController.invite);

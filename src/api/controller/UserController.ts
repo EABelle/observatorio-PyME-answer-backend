@@ -69,6 +69,20 @@ export class UserController {
         }
     }
 
+    public static async invite(req: Request, res: Response, next: NextFunction) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            const userRequest: UserPayload = req.body;
+            const user: User = await UserService.createUserByInvitation(userRequest);
+            const userResponse: UserResponse = transformUser(user);
+            return res.json(userResponse);
+        } catch (e) {
+            return next(new Error(e.message));
+        }
+    }
 
     public static async updateUser(req: Request, res: Response, next: NextFunction) {
         const errors = validationResult(req);
@@ -84,6 +98,21 @@ export class UserController {
             }
             const userResponse: UserResponse = transformUser(user);
             return res.json(userResponse);
+        } catch (e) {
+            return next(new Error(e.message));
+        }
+    }
+
+    public static async confirmUser(req: Request, res: Response, next: NextFunction) {
+        const errors = validationResult(req);
+        const userRequest: { password: string } = req.body;
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const id: string = req.params.id;
+        try {
+            const token: string = await UserService.confirmUser(id, userRequest);
+            return res.send(token);
         } catch (e) {
             return next(new Error(e.message));
         }

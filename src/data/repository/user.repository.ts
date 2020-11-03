@@ -4,8 +4,8 @@ import {UserPayload} from '../../api/contract';
 
 export class UserRepository {
 
-    static getAll(): Promise<User[]> {
-        return UserModel.find({});
+    static getUsers(filter = {}): Promise<User[]> {
+        return UserModel.find(filter);
     }
 
     static async getById(id: string): Promise<User> {
@@ -13,19 +13,19 @@ export class UserRepository {
         return user?.toObject();
     }
 
-    static async create(userPayload: UserPayload): Promise<User> {
+    static create(userPayload: UserPayload): Promise<User> {
         const userModel = new UserModel(userPayload);
-        return await userModel.save();
+        return userModel.save();
     }
 
-    static async update(id: string, payload: UserPayload): Promise<User | null> {
+    static async update(id: string, payload: UserPayload): Promise<User> {
         return new Promise(async (resolve, reject) => {
-            await UserModel.update({_id: id}, payload, (err: Error, response: any) => {
+            await UserModel.update({_id: id}, { $set: payload }, async (err: Error, response: any) => {
                 if (err) {
                     reject(err);
                 }
                 // @ts-ignore
-                resolve(response.n ? {_id: id, ...payload} : null);
+                resolve(response.n ? (await this.getById(id)) : null);
             });
         });
     }

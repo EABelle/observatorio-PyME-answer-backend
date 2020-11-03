@@ -1,6 +1,35 @@
 import {PollPayload} from '../../api/contract';
 import {PollRepository} from '../../data/repository/poll.repository';
-import {Poll} from '../domain/Poll';
+import {Poll, Status} from '../domain/Poll';
+import {transformSections} from '../transformer/pollTransformer';
+import {TemplateService} from './TemplateService';
+import {Template} from '../domain/Template';
+import {UserService} from './UserService';
+import {User} from '../domain/User';
+
+export function buildPoll(t: Template, u: User): PollPayload {
+    const { name, description, sections } = t;
+    const templateId = <string>t._id;
+    const poll: PollPayload = {
+        name,
+        description,
+        status: Status.NOT_STARTED,
+        templateId,
+        sections: transformSections(sections),
+        userId: u._id
+    };
+    if (u.company) {
+        poll.company = {
+            id: u._id,
+            name: u.name,
+        };
+    }
+    return poll;
+}
+
+function buildPolls(template: Template, targetUsers: User[]): PollPayload[] {
+    return targetUsers.map(user => buildPoll(template, user));
+}
 
 export class PollService {
 
@@ -25,6 +54,26 @@ export class PollService {
 
     static async createPoll(pollPayload: PollPayload): Promise<Poll> {
         return await PollRepository.create(pollPayload);
+    }
+
+    static async createPolls(templateId: string, userIds: string[]): Promise<Poll[]> {
+        const template: Template = await TemplateService.getTemplate(templateId);
+        let targetUsers: User[];
+        const sentPolls: Poll[] = await this.getPolls({templateId});
+        const excludeUserIds: string[] = sentPolls.map(poll => poll.userId);
+        if (!userIds) {
+            targetUsers = await UserService.getUsers({
+                roles: { $in: ['COMPANY'] },
+                _id: { $nin: excludeUserIds },
+            });
+        } else {
+            targetUsers = await UserService.getUsers({
+                _id: { $in: userIds, $nin: excludeUserIds },
+            });
+        }
+        const newPolls: PollPayload[] = await buildPolls(template, targetUsers);
+        const promises = newPolls.map(pollPayload => PollRepository.create(pollPayload));
+        return await Promise.all(promises);
     }
 
     static async updatePoll(id: string, pollPayload: PollPayload): Promise<Poll | null> {

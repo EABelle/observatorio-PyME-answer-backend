@@ -4,12 +4,12 @@ import {Template} from '../domain/Template';
 
 export class TemplateService {
 
-    static getTemplates(): Promise<Template[]> {
-        return TemplateRepository.getAll();
+    static getTemplates(query?: Object): Promise<Template[]> {
+        return TemplateRepository.getTemplates(query);
     }
 
     static async getExternalTemplateIds(): Promise<String[]> {
-        const templates: Template[] = await TemplateRepository.getAll();
+        const templates: Template[] = await TemplateRepository.getTemplates();
         return <String[]>templates.map(t => t.externalId).filter(Boolean);
     }
 

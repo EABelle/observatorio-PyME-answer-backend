@@ -27,12 +27,12 @@ app
     .use(bodyParser.urlencoded({extended: false}))
     .use(bodyParser.json())
     .use(externalApiEndpoints.polls, authorization, externalRouter)
+    .use('/', generalRouter)
     .use(apiEndpoints.templates, authMiddleware(permissions.template.ALL), templateRouter)
     .use(apiEndpoints.roles, authMiddleware(permissions.role.ALL), roleRouter)
     .use(apiEndpoints.polls, pollRouter)
     .use(apiEndpoints.users, userRouter)
     .use(apiEndpoints.login, loginRouter)
-    .use('/', generalRouter)
     .use(apiEndpoints.docs, swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     .use(fourOFourMiddleware);
 

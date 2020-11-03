@@ -1,9 +1,9 @@
 import {NextFunction, Response, Request} from 'express';
-import {PollPayload, PollResponse, TemplatePayload, UserPayload} from '../contract';
+import {PollPayload, PollResponse} from '../contract';
 import {Poll} from '../../core/domain/Poll';
 import {PollService} from '../../core/service/PollService';
 import {validationResult} from 'express-validator';
-import {buildPollPayload, transform, transformList} from '../../core/transformer/pollTransformer';
+import {transform, transformList} from '../../core/transformer/pollTransformer';
 import {CustomRequest} from '../../core/middlewares/utils';
 
 // require('cloudinary').v2; // TODO: Use to upload
@@ -89,18 +89,17 @@ export class PollController {
         }
     }
 
-    public static async createPollFromTemplate(req: Request, res: Response, next: NextFunction) {
+    public static async createPollsFromTemplate(req: Request, res: Response, next: NextFunction) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const template: TemplatePayload = req.body.template;
-        const user: UserPayload = req.body.user;
+        const templateId: string = req.body.templateId;
+        const userIds: string[] = req.body.userId;
         try {
-            const pollPayload: PollPayload = await buildPollPayload(template, user);
-            const poll: Poll = await PollService.createPoll(pollPayload);
-            const pollResponse: PollResponse = await transform(poll);
-            return res.json(pollResponse);
+            const polls: Poll[] = await PollService.createPolls(templateId, userIds);
+            const pollsResponse: PollResponse[] = await transformList(polls);
+            return res.json(pollsResponse);
         } catch (e) {
             return next(new Error(e.message));
         }

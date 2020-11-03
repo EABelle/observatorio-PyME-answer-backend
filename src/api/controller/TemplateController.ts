@@ -12,8 +12,9 @@ export class TemplateController {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
+        const query = req.query;
         try {
-            const templates: Template[] = await TemplateService.getTemplates();
+            const templates: Template[] = await TemplateService.getTemplates(query);
             const templatesResponse: TemplateResponse[] = await transformListToResponse(templates);
           return res.json(templatesResponse);
         } catch (e) {

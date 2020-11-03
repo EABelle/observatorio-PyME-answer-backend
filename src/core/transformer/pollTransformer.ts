@@ -1,5 +1,5 @@
-import {Poll, Question, Section, Status} from '../domain/Poll';
-import {PollPayload, PollResponse, TemplatePayload, UserPayload} from '../../api/contract';
+import {Poll, Question, Section} from '../domain/Poll';
+import {PollResponse} from '../../api/contract';
 import {transformUser} from './userTransformer';
 import {UserService} from '../service/UserService';
 
@@ -47,27 +47,6 @@ export async function transform(poll: Poll): Promise<PollResponse> {
         response.user = transformUser(await UserService.getUser(poll.userId));
     }
     return response;
-}
-
-export function buildPollPayload(tp: TemplatePayload, up: UserPayload): PollPayload {
-    const { name, description, sections } = tp;
-    const templateId = <string>tp.id;
-    const userId = <string>up.id;
-    const poll: PollPayload = {
-        name,
-        description,
-        status: Status.NOT_STARTED,
-        templateId,
-        sections: transformSections(sections),
-        userId
-    };
-    if (up.company) {
-        poll.company = {
-            id: up.id,
-            name: up.name,
-        };
-    }
-    return poll;
 }
 
 export function transformList(polls: Poll[]): Promise<PollResponse[]> {
