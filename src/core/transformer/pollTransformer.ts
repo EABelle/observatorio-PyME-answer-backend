@@ -44,7 +44,10 @@ export async function transform(poll: Poll): Promise<PollResponse> {
         };
     }
     if (userId) {
-        response.user = transformUser(await UserService.getUser(poll.userId));
+        const user = await UserService.getUser(poll.userId);
+        if (user) {
+            response.user = transformUser(user);
+        }
     }
     return response;
 }

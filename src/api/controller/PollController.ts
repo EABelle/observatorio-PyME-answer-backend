@@ -16,7 +16,7 @@ export class PollController {
             return res.status(400).json({ errors: errors.array() });
         }
         try {
-            const polls: Poll[] = await PollService.getPolls();
+            const polls: Poll[] = await PollService.getPolls(req.query);
             const pollsResponse: PollResponse[] = await transformList(polls);
             return res.json(pollsResponse);
         } catch (e) {
@@ -30,7 +30,7 @@ export class PollController {
             return res.status(400).json({ errors: errors.array() });
         }
         try {
-            const polls: Poll[] = await PollService.getPolls({userId: req.user._id});
+            const polls: Poll[] = await PollService.getPolls({userId: req.user._id, status: req.query.status});
             const pollsResponse: PollResponse[] = await transformList(polls);
             return res.json(pollsResponse);
         } catch (e) {
