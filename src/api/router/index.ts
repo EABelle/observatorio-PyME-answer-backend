@@ -8,6 +8,9 @@ import permissions from './permissions';
 import validations from './validations';
 import LoginController from '../controller/LoginController';
 
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart();
+
 //  Permissions defined at the route level
 export const userRouter: Router = Router()
     .get('/:id', authMiddleware(permissions.user.READ), UserController.getUser)
@@ -21,6 +24,7 @@ export const pollRouter: Router = Router()
     .get('/:id', authMiddleware(permissions.poll.READ), validations.poll.get, PollController.getPoll)
     .get('/', authMiddleware(permissions.poll.READ), PollController.getPolls)
     .post('/', authMiddleware(permissions.poll.CREATE), validations.poll.post, PollController.createPoll)
+    .post('/:id/files', authMiddleware(permissions.poll.UPDATE), multipartMiddleware,  PollController.uploadFiles)
     .post('/fromTemplate',
         authMiddleware(permissions.poll.CREATE),
         validations.poll.postFromTemplate,

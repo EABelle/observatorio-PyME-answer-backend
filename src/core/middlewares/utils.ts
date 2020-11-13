@@ -7,6 +7,7 @@ export interface RequestUser extends User {
 
 export interface CustomRequest extends Request {
     user: RequestUser;
+    files: any;
 }
 
 export const asyncHandler = (fn: Function) =>

@@ -14,7 +14,6 @@ const authMiddleware = (permission?: string) => async (req: CustomRequest, res: 
         if (!user) {
             return res.sendStatus(401);
         }
-
         if (permission) {
             const userPermissions = await UserService.getPermissions(user);
             if (!userPermissions.find(p => p === permission)) {

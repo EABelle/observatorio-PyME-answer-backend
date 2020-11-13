@@ -5,8 +5,7 @@ import {PollService} from '../../core/service/PollService';
 import {validationResult} from 'express-validator';
 import {transform, transformList} from '../../core/transformer/pollTransformer';
 import {CustomRequest} from '../../core/middlewares/utils';
-
-// require('cloudinary').v2; // TODO: Use to upload
+import {upload} from '../../core/service/ImageService';
 
 export class PollController {
 
@@ -121,6 +120,19 @@ export class PollController {
             return res.json(pollResponse);
         } catch (e) {
           return next(new Error(e.message));
+        }
+    }
+
+    public static async uploadFiles(req: Request, res: Response, next: NextFunction) {
+        // @ts-ignore
+        const files = Object.values(req.files);
+
+        try {
+            const uploadPromises = files.map(upload);
+            await Promise.all(uploadPromises);
+            res.send(files);
+        } catch (e) {
+            return next(new Error(e.message));
         }
     }
 
