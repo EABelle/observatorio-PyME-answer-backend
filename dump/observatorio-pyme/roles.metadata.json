@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"observatorio-pyme.roles"}],"uuid":"7d6e1baa2dcb42b0a3ce34e6a14ade5c"}

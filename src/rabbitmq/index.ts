@@ -4,7 +4,7 @@ import {Template} from '../core/domain/Template';
 
 const amqp = require('amqplib/callback_api');
 const AMQP_URL = process.env.AMQP_URL || 'amqp://guest:guest@localhost:5672';
-
+console.log('AMQP_URL', AMQP_URL);
 amqp.connect(AMQP_URL, (err: Error, connection: Connection) => {
     if (err) {
         throw err;
@@ -20,6 +20,7 @@ amqp.connect(AMQP_URL, (err: Error, connection: Connection) => {
         });
 
         channel.consume(queue, async (msg) => {
+            console.log(msg && msg.content.toString());
             const template: Template = JSON.parse((<Message>msg).content.toString());
             await TemplateService.saveTemplateIfNew(template);
             channel.ack(<Message>msg);

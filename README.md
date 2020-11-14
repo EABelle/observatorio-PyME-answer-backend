@@ -12,6 +12,15 @@ Also, as you'll need **docker-compose** to run it with a MongoDB container:
 
 - Docker Compose v1.24.1: https://docs.docker.com/compose/install/
 
+#### RabbitMQ
+
+```bash
+docker pull rabbitmq:3-management
+docker create --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+docker start rabbitmq
+
+```
+
 #### Run
 
 **The following environment variables are necessary:**

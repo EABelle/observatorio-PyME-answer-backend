@@ -1,0 +1,253 @@
+[
+  {
+    "_id": {"$oid": "5f9f2cd1ad86f64d81ed6cff"},
+    "__v": 0,
+    "created": {"$date": "2020-12-12T03:00:00.000Z"},
+    "description": "Este es un cuestinonario sobre la empresa",
+    "name": "Cuestionario sobre la empresa",
+    "sections": [
+      {
+        "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d00"},
+        "title": "Datos de Identificación de la Empresa",
+        "description": "Ingresá todos los datos",
+        "questions": [
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d01"},
+            "title": "Nombre o razón social de la empresa",
+            "value": "Empresa Textil SRL",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d02"},
+            "title": "CUIT",
+            "value": "20948372901",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d03"},
+            "title": "Domicilio",
+            "value": "Av. Belgrano 123",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d04"},
+            "title": "CP",
+            "value": "1234",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d05"},
+            "title": "Localidad",
+            "value": "CABA",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d06"},
+            "title": "Partido / departamento",
+            "value": "CABA",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d07"},
+            "title": "Provincia",
+            "value": "CABA",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d08"},
+            "title": "Teléfono",
+            "value": "15123456",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d09"},
+            "title": "email",
+            "value": "contacto@empresatextil.com",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d0a"},
+            "title": "Sitio web",
+            "value": "http;//empresatextil.com.ar",
+            "mandatory": "true",
+            "questions": []
+          }
+        ]
+      },
+      {
+        "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d0b"},
+        "title": "Sección A: Características generales de la emppresa",
+        "questions": [
+          {
+            "type": "SELECT",
+            "options": ["Comercialización al exterior", "Fábrica", "Construcción"],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d0c"},
+            "title": "Actividad principal",
+            "value": 2,
+            "description": "(*) Si la empresa factura por horas o distancia recorrida",
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "CHOICE",
+            "options": ["Sí", "No"],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d0d"},
+            "title": "Realizó inversiones durante 2019?",
+            "value": 1,
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "FILE",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d0e"},
+            "title": "Archivo 1",
+            "value": {
+              "0": {
+                "name": "Archivo1.pdf"
+              }
+            },
+            "mandatory": "true",
+            "questions": []
+          },
+          {
+            "type": "TEXT",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d0f"},
+            "title": "¿En qué invirtió?",
+            "value": "En diferentes cosas que /n ocupan /n  muchas /n lineas",
+            "multiline": true,
+            "questions": []
+          },
+          {
+            "type": "GROUPED",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d10"},
+            "title": "¿En qué invirtió?",
+            "questions": [
+              {
+                "type": "TEXT",
+                "options": [],
+                "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d11"},
+                "title": "Reinversión de utilidades",
+                "value": "10"
+              },
+              {
+                "type": "TEXT",
+                "options": [],
+                "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d12"},
+                "title": "Aportes",
+                "value": "10"
+              },
+              {
+                "type": "TEXT",
+                "options": [],
+                "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d13"},
+                "title": "Programas públicos",
+                "value": "10"
+              },
+              {
+                "type": "TEXT",
+                "options": [],
+                "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d14"},
+                "title": "Otros",
+                "value": "70"
+              },
+              {
+                "type": "TEXT",
+                "options": [],
+                "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d15"},
+                "title": "Especificar \"Otros\"",
+                "value": "Otras cosas"
+              }
+            ]
+          },
+          {
+            "type": "NUMBER",
+            "options": [],
+            "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d16"},
+            "title": "¿En qué año invirtió?",
+            "description": "Min: 1980 / Max: 2020",
+            "value": 2020,
+            "restrictions": {
+              "_id": {"$oid": "5f9f2cd1ad86f64d81ed6d17"},
+              "min": 1980,
+              "max": 2020
+            },
+            "questions": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {"$oid": "5faf13ca3ceb4e11d94001ee"},
+    "__v": 0,
+    "created": {"$date": "2020-10-27T15:52:04.787Z"},
+    "description": "encuesta de prueba",
+    "name": "prueba",
+    "sections": [
+      {
+        "_id": {"$oid": "5faf13ca3ceb4e11d94001ef"},
+        "title": "",
+        "description": "",
+        "questions": []
+      }
+    ],
+    "externalId": "5f98422935e6020c23f9711d"
+  },
+  {
+    "_id": {"$oid": "5faf13ca3ceb4e11d94001f0"},
+    "__v": 0,
+    "created": {"$date": "2020-11-13T21:52:14.825Z"},
+    "description": "encuesta de prueba",
+    "name": "prueba",
+    "sections": [
+      {
+        "_id": {"$oid": "5faf13ca3ceb4e11d94001f1"},
+        "title": "",
+        "description": "",
+        "questions": [
+          {
+            "type": "CHOICE",
+            "options": ["la gallina", "el huevo"],
+            "_id": {"$oid": "5faf13ca3ceb4e11d94001f2"},
+            "value": "Que vino primero el huevo o la gallina?",
+            "mandatory": "true",
+            "questions": []
+          }
+        ]
+      }
+    ],
+    "externalId": "5faf000e347b3300248cedf5"
+  }
+]
