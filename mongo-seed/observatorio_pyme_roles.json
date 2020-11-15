@@ -1,0 +1,20 @@
+[
+  {
+    "_id": {"$oid": "5f98b70f216c0b3679567f9b"},
+    "__v": 0,
+    "name": "ADMIN",
+    "permissions": ["CREATE_USER", "READ_USER", "UPDATE_USER", "DELETE_USER", "CREATE_POLL", "READ_POLL", "UPDATE_POLL", "DELETE_POLL", "TEMPLATES", "ROLES", "MANAGE_USERS"]
+  },
+  {
+    "_id": {"$oid": "5f98b732216c0b3679567f9c"},
+    "__v": 0,
+    "name": "OBSERVATORY",
+    "permissions": ["CREATE_USER", "READ_USER", "UPDATE_USER", "DELETE_USER", "CREATE_POLL", "READ_POLL", "UPDATE_POLL", "DELETE_POLL", "TEMPLATES", "ROLES", "MANAGE_USERS", "MANAGE_POLLS"]
+  },
+  {
+    "_id": {"$oid": "5f98b769216c0b3679567f9d"},
+    "__v": 0,
+    "name": "COMPANY",
+    "permissions": ["READ_USER", "UPDATE_USER", "READ_POLL", "UPDATE_POLL", "ANSWER"]
+  }
+]

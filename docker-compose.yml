@@ -8,6 +8,8 @@ services:
       - "${DOCKER_SERVER_PORTS}"
     depends_on:
       - mongo
+      - redis
+      - rabbitmq
   mongo:
     container_name: mongo
     image: mongo
@@ -17,6 +19,16 @@ services:
       - .env
     ports:
       - "${DOCKER_MONGO_PORTS}"
+  mongo_seed:
+    image: mongo
+    links:
+      - mongo
+    volumes:
+      - ./mongo-seed:/mongo-seed
+    command:
+      /mongo-seed/import.sh
+    depends_on:
+      - mongo
   redis:
     container_name: redis-server
     image: redis

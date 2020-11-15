@@ -1,0 +1,39 @@
+[
+  {
+    "_id": {"$oid": "5fa1df6f049972b3191aac30"},
+    "__v": 0,
+    "avatar": null,
+    "confirmed": true,
+    "email": "esteban@test.com",
+    "name": "Esteban Bellegarde",
+    "password": "$2a$08$yIsgW.fafXLuCeu54JpYUO4aGNtplxS2yqYt2U63dR/LooCrMHPLC",
+    "roles": ["ADMIN"]
+  },
+  {
+    "_id": {"$oid": "5fa4588325cb3b637494c12e"},
+    "__v": 0,
+    "confirmed": true,
+    "email": "respondedor@test.com",
+    "name": "respondedor",
+    "password": "$2a$08$ddWe6MCNvMqAxPxNHdFqHuSNuXPqHIwuqTmewQWfPkCGCfPjD1lUC",
+    "roles": ["COMPANY"]
+  },
+  {
+    "_id": {"$oid": "5faf002a37c9cf0e729cd465"},
+    "__v": 0,
+    "confirmed": true,
+    "email": "encuestador@test.com",
+    "name": "encuestador",
+    "password": "$2a$08$MEZIP.hJCAdBaZVfsp1J9eVL6m/nmCn2MWGTRDrNTWAYdog.uigMm",
+    "roles": ["OBSERVATORY"]
+  },
+  {
+    "_id": {"$oid": "5fafecd69d78400bd7df91f5"},
+    "__v": 0,
+    "confirmed": true,
+    "email": "admin@test.com",
+    "name": "Administrador",
+    "password": "$2a$08$yCE3kHBTmE3vQALxvKI9eObGb4TLr4zcoEGH.4c5TLUoj1JQDEbH6",
+    "roles": ["ADMIN", "OBSERVATORY"]
+  }
+]
