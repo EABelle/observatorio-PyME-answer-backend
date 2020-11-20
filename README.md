@@ -2,27 +2,6 @@
 
 ## Requirements
 
-### For production
-
-As this server runs into a **Docker** container (tested with Docker v19.03.5, so this version is recommended), you'll need to install Docker first:
-
-- Docker v19.03: https://docs.docker.com/install/
-
-Also, as you'll need **docker-compose** to run it with a MongoDB container:
-
-- Docker Compose v1.24.1: https://docs.docker.com/compose/install/
-
-#### RabbitMQ
-
-```bash
-docker pull rabbitmq:3-management
-docker create --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-docker start rabbitmq
-
-```
-
-#### Run
-
 **The following environment variables are necessary:**
 
 - `NODE_ENV`: (`NODE_ENV=production`) 
@@ -64,14 +43,63 @@ SECRET=string
 NEW_RELIC_LICENSE_KEY=string
 ```
 
+## Run
+
 **The above configuration exposes the API to `http://localhost:8080/`*
+
+### Easy way
+
+You'll need to install **Docker** first (tested with Docker v19.03.5, so this version is recommended):
+
+- Docker v19.03: https://docs.docker.com/install/
+
+Also, as you'll need **docker-compose** to run it with a MongoDB container:
+
+- Docker Compose v1.24.1: https://docs.docker.com/compose/install/
 
 Then, you only have to run the following command to build and run both app and MongoDB containers:
 ```
 $ docker-compose up --build
 ```
 
-### For development
+### Manually
+
+You'll need to have the following dependencies running:
+
+#### RabbitMQ (If you haven't aready run it)
+
+```bash
+docker pull rabbitmq:3-management
+docker create --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+docker start rabbitmq
+```
+
+#### Redis
+
+Install it: https://redis.io/download
+
+And then run the server:
+
+```bash
+redis-server
+```
+
+#### MongoDB
+
+Install it: https://www.mongodb.com/try/download/community
+
+And then run the server:
+
+```bash
+sudo service mongod start
+```
+
+**Then** you'll need to migrate the database. This commands are in the `mongo-seed/import.sh` file, or the collections are in the `mongo-seed` directory of the project.
+
+*You may use MongoDB Atlas instead, to have a Mongo Databaase runing on cloud servers: https://www.mongodb.com/cloud/atlas
+
+
+#### The, install and run the project
 
 **Node.js**: The project runs with the Node.js v10.15.3, so that is not recommended the using of previous versions.
 This version is also present within the `.nvmrc` file in case you have **nvm** installed.
@@ -80,13 +108,6 @@ Once you have Node installed, execute:
 
 ```
 $ npm i
-```
-
-
-To run tests:
-
-```
-$ npm test
 ```
 
 To run the server locally in develoment mode (you need to provide the NODE_ENV, PORT and MONGODB_URI):
