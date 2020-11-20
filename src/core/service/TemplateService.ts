@@ -1,5 +1,8 @@
 import {TemplateRepository} from '../../data/repository/template.repository';
 import {Template} from '../domain/Template';
+import {Poll} from '../domain/Poll';
+import {UserService} from './UserService';
+import {PollService} from './PollService';
 
 
 export class TemplateService {
@@ -11,6 +14,14 @@ export class TemplateService {
     static async getExternalTemplateIds(): Promise<String[]> {
         const templates: Template[] = await TemplateRepository.getTemplates();
         return <String[]>templates.map(t => t.externalId).filter(Boolean);
+    }
+
+    static async getPolledUsers(templateId: String) {
+        const sentPolls: Poll[] = await PollService.getPolls({templateId});
+        const polledUserIds: string[] = sentPolls.map(poll => poll.userId);
+        return await UserService.getUsers({
+            _id: { $in: polledUserIds },
+        });
     }
 
     static getTemplate(id: string): Promise<Template> {

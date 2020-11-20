@@ -70,6 +70,11 @@ export class PollService {
             targetUsers = await UserService.getUsers({
                 _id: { $in: userIds, $nin: excludeUserIds },
             });
+            targetUsers.forEach(user => {
+                if (!user.roles.includes('COMPANY')) {
+                    throw new Error('One or more users are not allowed to answer polls');
+                }
+            });
         }
         const newPolls: PollPayload[] = await buildPolls(template, targetUsers);
         const promises = newPolls.map(pollPayload => PollRepository.create(pollPayload));

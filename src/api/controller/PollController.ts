@@ -94,7 +94,7 @@ export class PollController {
             return res.status(400).json({ errors: errors.array() });
         }
         const templateId: string = req.body.templateId;
-        const userIds: string[] = req.body.userId;
+        const userIds: string[] = req.body.userIds;
         try {
             const polls: Poll[] = await PollService.createPolls(templateId, userIds);
             const pollsResponse: PollResponse[] = await transformList(polls);

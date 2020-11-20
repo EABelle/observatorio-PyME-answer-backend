@@ -45,6 +45,7 @@ export const templateRouter: Router = Router()
     .get('/', TemplateController.getTemplates)
     .get('/external-ids', TemplateController.getExternalTemplateIds)
     .get('/:id', TemplateController.getTemplate)
+    .get('/:id/users', TemplateController.getPolledUsers)
     .post('/', TemplateController.createTemplate)
     .delete('/:id', TemplateController.deleteTemplate);
 

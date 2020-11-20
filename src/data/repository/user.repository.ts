@@ -4,8 +4,12 @@ import {UserPayload} from '../../api/contract';
 
 export class UserRepository {
 
-    static getUsers(filter = {}): Promise<User[]> {
-        return UserModel.find(filter);
+    static getUsers(filter: any): Promise<User[]> {
+        const { role, ...dbFilter } = filter;
+        if (role) {
+            dbFilter.roles = { $in: [role] };
+        }
+        return UserModel.find(dbFilter);
     }
 
     static async getById(id: string): Promise<User> {

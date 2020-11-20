@@ -14,7 +14,7 @@ export class UserController {
             return res.status(400).json({ errors: errors.array() });
         }
         try {
-            const users: User[] = await UserService.getUsers();
+            const users: User[] = await UserService.getUsers(req.query);
             const usersResponse: UserResponse[] = transformList(users);
           return res.json(usersResponse);
         } catch (e) {

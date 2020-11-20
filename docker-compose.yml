@@ -26,7 +26,7 @@ services:
     volumes:
       - ./mongo-seed:/mongo-seed
     command:
-      /mongo-seed/import.sh
+      /mongo-seed/import-docker.sh
     depends_on:
       - mongo
   redis:

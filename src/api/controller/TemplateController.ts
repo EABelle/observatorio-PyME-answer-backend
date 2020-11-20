@@ -1,9 +1,11 @@
 import {NextFunction, Response, Request} from 'express';
-import {TemplatePayload, TemplateResponse} from '../contract';
+import {TemplatePayload, TemplateResponse, UserResponse} from '../contract';
 import {Template} from '../../core/domain/Template';
 import {TemplateService} from '../../core/service/TemplateService';
 import {validationResult} from 'express-validator';
 import {transformToResponse, transformListToResponse, transformFromPayload} from '../../core/transformer/templateTransformer';
+import {User} from '../../core/domain/User';
+import {transformList} from '../../core/transformer/userTransformer';
 
 export class TemplateController {
 
@@ -33,6 +35,21 @@ export class TemplateController {
           return res.json(response);
         } catch (e) {
           return next(new Error(e.message));
+        }
+    }
+
+    public static async getPolledUsers(req: Request, res: Response, next: NextFunction) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const templateId: string = req.params.id;
+        try {
+            const users: User[] = await TemplateService.getPolledUsers(templateId);
+            const response: UserResponse[] = await transformList(users);
+            return res.json(response);
+        } catch (e) {
+            return next(new Error(e.message));
         }
     }
 
